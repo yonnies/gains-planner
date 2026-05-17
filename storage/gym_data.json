@@ -1,0 +1,118 @@
+{
+  "groupLabels": {
+    "compounds": "Compounds",
+    "glutes": "Glutes",
+    "sideGlutes": "Side Glutes",
+    "hamstrings": "Hamstrings",
+    "quads": "Quads",
+    "upperBack": "Upper Back",
+    "lowerBack": "Lower Back",
+    "chest": "Chest",
+    "shoulders": "Shoulders",
+    "delts": "Delts",
+    "triceps": "Triceps",
+    "biceps": "Biceps"
+  },
+  "exerciseLibrary": {
+    "compounds": ["Barbell Back Squat", "Barbell Front Squat", "Conventional Deadlift", "Sumo Deadlift", "Trap Bar Deadlift", "Bulgarian Split Squat", "Walking Lunges", "Step-Up", "Hack Squat", "Leg Press", "Sumo Deficit Deadlift", "High Bar Sumo Squat", "Romanian Deadlift (RDL)"],
+    "glutes": ["Hip Thrust", "Barbell Hip Thrust", "Cable Kickback", "Glute Bridge", "Single-Leg Hip Thrust", "Donkey Kick", "Banded Frog Pump", "45° Back Extension (Glute Focus)", "Romanian Deadlift (RDL)", "Sumo Deficit Deadlift", "High Bar Sumo Squat", "Deficit Rear-Foot-Elevated Lunge", "Conventional Deficit Deadlift", "\"Dr. Mike\" Glute Deficit Deadlift", "Dumbbell Sumo Squat", "Single Leg Deadlift (B-Stance)"],
+    "sideGlutes": ["Hip Abduction Machine", "Banded Side Walk", "Cable Hip Abduction", "Side-Lying Clamshell", "Standing Cable Abduction", "Lateral Band Walk", "Sumo Squat", "Curtsy Lunge", "TRX Side Lunge", "Lateral Lunges"],
+    "hamstrings": ["Seated Hamstring Curl", "Lying Hamstring Curl", "Single-Leg RDL", "Romanian Deadlift (RDL)", "Nordic Curl", "Good Morning", "Glute-Ham Raise", "Swiss Ball Curl", "Stiff-Leg Deadlift", "Stiff-Legged Deficit Deadlift", "Single-Leg Deadlift"],
+    "quads": ["Leg Extension", "Goblet Squat", "Leg Press", "Step-Up", "Sissy Squat", "Spanish Squat", "Terminal Knee Extension", "Wall Sit", "Cyclist Squat", "Hack Squat", "Smith Machine Front-Foot-Elevated Lunge", "Heel-Elevated Squat Dropset (Quad Focus)", "High Bar Sumo Squat", "Deficit Rear-Foot-Elevated Lunge", "Reverse Lunges", "Step-Downs", "Pistol Squat (Assisted)", "Single-Leg Press"],
+    "upperBack": ["Lat Pulldown", "Seated Cable Row", "Chest Supported Row", "Pull-Up", "Face Pull", "Pendlay Row", "T-Bar Row", "Single-Arm Dumbbell Row", "Meadows Row", "Cable Pullover", "Inverted Row"],
+    "lowerBack": ["Back Extension", "Good Morning", "Romanian Deadlift (RDL)", "Reverse Hyperextension", "Superman", "Bird Dog", "Deadlift", "45° Back Extension", "Banded Good Morning"],
+    "chest": ["Bench Press", "Incline Dumbbell Press", "Push-Up", "Cable Fly", "Chest Press Machine", "Decline Bench Press", "Pec Deck", "Dumbbell Pullover", "Low Cable Crossover", "Dips"],
+    "shoulders": ["Overhead Press", "Arnold Press", "Machine Shoulder Press", "Landmine Press", "Upright Row", "Push Press", "Seated Dumbbell Press", "Z-Press", "Cable Overhead Press"],
+    "delts": ["Lateral Raise", "Rear Delt Fly", "Cable Lateral Raise", "Face Pull", "Y Raise", "W Raise", "Prone Rear Delt Raise", "Cable Rear Delt Fly", "Band Pull-Apart", "Leaning Lateral Raise"],
+    "triceps": ["Tricep Pushdown", "Overhead Tricep Extension", "Skull Crusher", "Close-Grip Bench Press", "Diamond Push-Up", "Dip", "Cable Kickback", "JM Press", "Tate Press"],
+    "biceps": ["Barbell Curl", "Hammer Curl", "Incline Dumbbell Curl", "Cable Curl", "Preacher Curl", "Concentration Curl", "Spider Curl", "Zottman Curl", "Cross-Body Curl"]
+  },
+  "exerciseNotes": {
+    "Smith Machine Front-Foot-Elevated Lunge": {
+      "videos": ["http://www.youtube.com/watch?v=_gakDkB24WI&t=162s"],
+      "notes": "Stand with your front foot elevated on a platform and place your back foot strictly on its toe to act as a stabilizer. Keep almost 100% of your body weight loaded into the working front leg. Lower yourself down with an exceptionally slow, controlled eccentric phase, pause gently at the bottom to maximize the stretch on the glute, and then drive upward. Complete one leg entirely, rest 15–30 seconds, and then switch to the other leg to manage systemic fatigue."
+    },
+    "Sumo Deficit Deadlift": {
+      "videos": ["http://www.youtube.com/watch?v=_gakDkB24WI&t=348s", "http://www.youtube.com/watch?v=mzjX21QqazI&t=99s"],
+      "notes": "Stand on a platform or plates to create a deficit. Take a stance wider than shoulder-width with your toes flared outward further than normal (this naturally forces your knees to flare out and keeps your back flat). Keep your arms completely straight to act as hooks—do not pull with your biceps. Descend slowly to find an deep, intense stretch in the glutes, pause briefly at the bottom, and stand back up. Keep the eccentric phase controlled all the way through to the final rack.\n\nNote: Excellent for glutes and adductors, but the wide stance \"pre-contracts\" the glutes. This means you lose out on the maximum possible glute stretch at the bottom of the movement."
+    },
+    "Romanian Deadlift (RDL)": {
+      "videos": ["http://www.youtube.com/watch?v=_gakDkB24WI&t=535s", "http://www.youtube.com/watch?v=6vlP9xPJbaQ&t=120s"],
+      "notes": "Initiate the movement by pushing your hips/butt straight back and keeping your knees set back to lock intense tension onto the hamstrings and glutes. Lower the bar slowly. To advance the tension, pause for 2 full seconds hovering just a centimeter above the floor without letting the weight touch or unload, then drive the hips forward to stand up.\n\nTechnique: Keep feet shoulder-width apart, slightly turned out, with knees soft. Tuck your chin and brace your core. Hinge at the hips, digging your heels back as if being pulled from behind. Keep the bar/dumbbells close to your shins and drive back up without over-extending."
+    },
+    "Heel-Elevated Squat Dropset (Quad Focus)": {
+      "videos": ["http://www.youtube.com/watch?v=_gakDkB24WI&t=738s"],
+      "notes": "Stand with your heels elevated on a plate and your toes pointed slightly out. Squat down deep, keeping your chest strictly upright and pushing your knees forward over your toes. Perform slow repetitions with a pause at the bottom until reaching failure with the barbell. Immediately strip the bar away and continue performing bodyweight repetitions down to absolute muscular failure."
+    },
+    "High Bar Sumo Squat": {
+      "videos": ["http://www.youtube.com/watch?v=AgogBuofpE8&t=139s"],
+      "notes": "Take a wide stance (wider than shoulder-width) and keep your chest upright. Focus on forcing your knees outward throughout the entire movement to keep the glutes constantly contracted. Push your hips/butt far back to sink ultra-deep into the stretch. Execute with a controlled negative, pause at the bottom, and drive back up."
+    },
+    "Deficit Rear-Foot-Elevated Lunge": {
+      "videos": ["http://www.youtube.com/watch?v=AgogBuofpE8&t=424s"],
+      "notes": "Performed on an elevated platform. Place the top of your back foot (shoelaces down) flat on the ground/pad. As you drive upward, focus completely on using your front leg and glute; the back leg is strictly a stabilizer. Lower down slowly until the back knee gently touches the ground for an extreme eccentric stretch. Take a 60-second rest between switching sides."
+    },
+    "Lying Hamstring Curl": {
+      "videos": ["http://www.youtube.com/watch?v=AgogBuofpE8&t=818s"],
+      "notes": "Performed on a properly leveraged machine where resistance is heaviest at the bottom and tapers off on the way up. Milk the eccentric (lowering) phase for several seconds, fully stretch the hamstrings, and pause briefly at the bottom. Explode and accelerate the weight out of the bottom position to reach full contraction."
+    },
+    "Conventional Deficit Deadlift": {
+      "videos": ["http://www.youtube.com/watch?v=mzjX21QqazI&t=127s"],
+      "notes": "Hits the glutes well, but requires bending the knees heavily to reach deep enough. This heavy knee bend shifts a significant portion of the load away from the glutes and into the quads and adductors."
+    },
+    "Stiff-Legged Deficit Deadlift": {
+      "videos": ["http://www.youtube.com/watch?v=mzjX21QqazI&t=165s"],
+      "notes": "Great for getting a deep stretch under load, but keeping the knees locked back forces the hamstrings to become the limiting factor. Your hamstrings will take over and get very sore, while the glutes don't get fully stimulated."
+    },
+    "\"Dr. Mike\" Glute Deficit Deadlift": {
+      "videos": ["http://www.youtube.com/watch?v=mzjX21QqazI&t=223s"],
+      "notes": "The ultimate hybrid variation. Start it like a stiff-legged deadlift with relatively straight knees. As you lower and begin to feel the hamstring stretch, intentionally let your knees come forward just enough to release tension from the hamstrings. Drop all the way down to a deficit to touch the ground, pausing for a split second."
+    },
+    "Bulgarian Split Squat": {
+      "videos": ["http://www.youtube.com/watch?v=6vlP9xPJbaQ&t=420s"],
+      "notes": "To find your stance, sit on the bench, extend your working leg straight out, and stand up. For glutes, lean your chest slightly forward; for quads, stay upright. Hold one dumbbell for better balance. Lower down for 2 seconds, then drive up through your front heel for 2 seconds without locking out the knee."
+    },
+    "Hip Thrust": {
+      "videos": ["http://www.youtube.com/watch?v=6vlP9xPJbaQ&t=543s"],
+      "notes": "Place your shoulder blades on the bench and use a pad for protection. Keep your chin tucked and look forward at all times to protect your back. Drive through your hips and scoop your tailbone upward at the top. If the bench is too high, sit on a weight plate for extra leverage."
+    },
+    "Dumbbell Sumo Squat": {
+      "videos": ["http://www.youtube.com/watch?v=6vlP9xPJbaQ&t=747s"],
+      "notes": "Take a wide stance, hold a heavy dumbbell vertically, and sit back into your heels with a slight forward chest lean. Lower slowly for 3 seconds. Squeeze your glutes the exact moment you begin to rise and stop just short of a full standing lockout."
+    },
+    "Single Leg Deadlift (B-Stance)": {
+      "videos": ["http://www.youtube.com/watch?v=6vlP9xPJbaQ&t=951s"],
+      "notes": "Place one foot forward (working leg) and the back foot bent like a kickstand (non-working leg). Hold the dumbbell on the side of the working leg. Hinge at the hips to isolate the front hamstring. Drive the entire pulling movement using only your front hamstring and glute."
+    }
+  },
+  "dayTemplates": {
+    "lowerA": {
+      "title": "Lower A",
+      "subtitle": "Posterior Chain Focus",
+      "allGroups": ["compounds", "glutes", "sideGlutes", "hamstrings", "quads"],
+      "activeGroups": ["compounds", "glutes", "hamstrings", "quads"],
+      "selected": { "compounds": "Barbell Back Squat", "glutes": "Hip Thrust", "sideGlutes": "Hip Abduction Machine", "hamstrings": "Seated Hamstring Curl", "quads": "Leg Extension" }
+    },
+    "upperA": {
+      "title": "Upper A",
+      "subtitle": "Pull Dominant",
+      "allGroups": ["upperBack", "lowerBack", "chest", "shoulders", "delts", "biceps", "triceps"],
+      "activeGroups": ["upperBack", "lowerBack", "chest", "shoulders", "delts"],
+      "selected": { "upperBack": "Lat Pulldown", "lowerBack": "Back Extension", "chest": "Bench Press", "shoulders": "Overhead Press", "delts": "Lateral Raise", "biceps": "Barbell Curl", "triceps": "Tricep Pushdown" }
+    },
+    "lowerB": {
+      "title": "Lower B",
+      "subtitle": "Quad Focus",
+      "allGroups": ["compounds", "glutes", "sideGlutes", "hamstrings", "quads"],
+      "activeGroups": ["compounds", "glutes", "hamstrings", "quads"],
+      "selected": { "compounds": "Bulgarian Split Squat", "glutes": "Barbell Hip Thrust", "sideGlutes": "Banded Side Walk", "hamstrings": "Nordic Curl", "quads": "Hack Squat" }
+    },
+    "upperB": {
+      "title": "Upper B",
+      "subtitle": "Push Dominant",
+      "allGroups": ["upperBack", "lowerBack", "chest", "shoulders", "delts", "biceps", "triceps"],
+      "activeGroups": ["upperBack", "lowerBack", "chest", "shoulders", "delts"],
+      "selected": { "upperBack": "Seated Cable Row", "lowerBack": "Romanian Deadlift (RDL)", "chest": "Incline Dumbbell Press", "shoulders": "Arnold Press", "delts": "Rear Delt Fly", "biceps": "Hammer Curl", "triceps": "Skull Crusher" }
+    }
+  }
+}

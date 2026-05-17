@@ -1,0 +1,11 @@
+/* Ensure the html and body take up the full viewport */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 98%;
+  height: 100%;
+}
+
+#root {
+  display: block; /* Overrides flex centering if present */
+}
