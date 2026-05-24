@@ -126,15 +126,14 @@ function DayCard({ dayKey, day, library, onUpdate, accent }) {
   });
 
   return (
-    <div style={{ background:"#141414", border:"1px solid #242424", borderRadius:12, padding:"20px 18px", position:"relative", overflow:"hidden" }}>
+    <div style={{ background:"#141414", border:"1px solid #242424", borderRadius:12, padding:"26px 22px", position:"relative", overflow:"hidden" }}>
       <div style={{ position:"absolute", right:12, top:6, fontFamily:"'Barlow Condensed',sans-serif", fontWeight:900, fontSize:68, lineHeight:1, opacity:0.055, pointerEvents:"none", color:"#fff", userSelect:"none" }}>{DAY_INDEX[dayKey]}</div>
-      <div style={{ marginBottom:14 }}>
+      <div style={{ marginBottom:20 }}>
         <div style={{ display:"flex", alignItems:"center", gap:7, marginBottom:3 }}>
           <div style={{ width:6, height:6, borderRadius:"50%", background:accent, boxShadow:`0 0 8px ${accent}99`, flexShrink:0 }} />
           <span style={{ fontFamily:"'DM Mono',monospace", fontSize:10, color:"#444", letterSpacing:"0.08em" }}>Day {DAY_INDEX[dayKey]} of 4</span>
         </div>
-        <div style={{ fontFamily:"'Barlow Condensed',sans-serif", fontWeight:900, fontSize:24, textTransform:"uppercase", letterSpacing:"0.01em", lineHeight:1.1 }}>{day.title}</div>
-        <div style={{ fontFamily:"'DM Mono',monospace", fontSize:11, color:"#555", marginTop:2 }}>{day.subtitle}</div>
+        <div style={{ fontFamily:"'Barlow Condensed',sans-serif", fontWeight:900, fontSize:28, textTransform:"uppercase", letterSpacing:"0.01em", lineHeight:1.1, marginTop:4 }}>{day.title}</div>
       </div>
       <div style={{ height:1, background:"#1E1E1E", marginBottom:2 }} />
       {day.activeGroups.map((group, i) => (
@@ -305,6 +304,72 @@ function ExerciseModal({ name, data, onSave, onClose }) {
   );
 }
 
+// ─── Exercise Group Body (with drag-to-reorder) ─────────────────────────────
+function ExerciseGroupBody({ group, exercises, exerciseNotes, onModal, onDelete, onReorder, canDrag, addState, onAddChange, onAddSubmit }) {
+  const drag = useDragReorder(exercises, onReorder);
+  return (
+    <div style={{ display:"flex", flexDirection:"column" }}>
+      {exercises.map((ex, i) => {
+        const hasData = exerciseNotes[ex]?.notes || exerciseNotes[ex]?.videos?.length;
+        const firstVideo = exerciseNotes[ex]?.videos?.[0];
+        return (
+          <div key={ex}
+            draggable={canDrag}
+            onDragStart={canDrag ? () => drag.handleDragStart(i) : undefined}
+            onDragEnter={canDrag ? () => drag.handleDragEnter(i) : undefined}
+            onDragEnd={canDrag ? drag.handleDragEnd : undefined}
+            onDragOver={canDrag ? e => e.preventDefault() : undefined}
+            style={{ display:"flex", alignItems:"center", justifyContent:"space-between", padding:"10px 18px", borderBottom:"1px solid #1A1A1A", userSelect:"none" }}
+          >
+            {canDrag && (
+              <div title="Drag to reorder" style={{ color:"#2A2A2A", fontSize:16, cursor:"grab", flexShrink:0, lineHeight:1, marginRight:8 }}>⠿</div>
+            )}
+            <button onClick={() => onModal(ex)} style={{ background:"none", border:"none", cursor:"pointer", textAlign:"left", flex:1, padding:0 }}>
+              <div style={{ display:"flex", alignItems:"center", gap:12 }}>
+                <span style={{ fontFamily:"'DM Mono',monospace", fontSize:12, color: hasData ? "#E8FF47" : "#888" }}>{ex}</span>
+                {firstVideo && (
+                  <a href={firstVideo} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}
+                    style={{ background:"#1A2200", border:"1px solid #3A5500", borderRadius:4, padding:"2px 6px", fontFamily:"'DM Mono',monospace", fontSize:9, color:"#8ACA00", textDecoration:"none" }}>
+                    VIDEO
+                  </a>
+                )}
+              </div>
+            </button>
+            <button onClick={() => onDelete(ex)}
+              style={{ background:"none", border:"none", color:"#2E2E2E", cursor:"pointer", padding:"4px", fontSize:"14px" }}
+              onMouseEnter={e => e.target.style.color = "#FF6B6B"}
+              onMouseLeave={e => e.target.style.color = "#2E2E2E"}>
+              ✕
+            </button>
+          </div>
+        );
+      })}
+      {/* ── Inline add row ── */}
+      <div style={{ display:"flex", gap:8, padding:"10px 14px", borderTop:"1px solid #1E1E1E", background:"#0E0E0E", alignItems:"center", flexWrap:"wrap" }}>
+        <input
+          value={addState.name}
+          onChange={e => onAddChange({ name: e.target.value })}
+          onKeyDown={e => { if (e.key === "Enter") onAddSubmit(); }}
+          placeholder="New exercise name..."
+          style={{ flex:2, minWidth:140, background:"#141414", border:"1px solid #252525", borderRadius:6, color:"#F5F0E8", padding:"7px 10px", fontFamily:"'DM Mono',monospace", fontSize:11, outline:"none" }}
+          onFocus={e => e.target.style.borderColor = "#E8FF47"}
+          onBlur={e => e.target.style.borderColor = "#252525"}
+        />
+        <input
+          value={addState.link}
+          onChange={e => onAddChange({ link: e.target.value })}
+          onKeyDown={e => { if (e.key === "Enter") onAddSubmit(); }}
+          placeholder="YouTube link (optional)"
+          style={{ flex:3, minWidth:160, background:"#141414", border:"1px solid #252525", borderRadius:6, color:"#F5F0E8", padding:"7px 10px", fontFamily:"'DM Mono',monospace", fontSize:11, outline:"none" }}
+          onFocus={e => e.target.style.borderColor = "#E8FF47"}
+          onBlur={e => e.target.style.borderColor = "#252525"}
+        />
+        <button onClick={onAddSubmit} className="add-btn" style={{ padding:"6px 14px", fontSize:11, whiteSpace:"nowrap" }}>+ Add</button>
+      </div>
+    </div>
+  );
+}
+
 // ─── Knowledge Library View ───────────────────────────────────────────────────
 function KnowledgeView({ exerciseLibrary, onUpdateLibrary, exerciseNotes, onUpdateExerciseNotes }) {
   const [search, setSearch] = React.useState("");
@@ -416,77 +481,25 @@ function KnowledgeView({ exerciseLibrary, onUpdateLibrary, exerciseNotes, onUpda
               style={{ width: "100%", background: "none", border: "none", padding: "14px 18px", borderBottom: expanded[group] ? "1px solid #1E1E1E" : "none", display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer" }}
             >
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <div style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 900, fontSize: 13, textTransform: "uppercase", letterSpacing: "0.1em", color: "#666" }}>{GROUP_LABELS[group]}</div>
+                <div style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 900, fontSize: 13, textTransform: "uppercase", letterSpacing: "0.1em", color: "#E8FF47" }}>{GROUP_LABELS[group]}</div>
                 <div style={{ fontFamily: "'DM Mono',monospace", fontSize: 10, color: "#333" }}>{exercises.length} exercises</div>
               </div>
               <span style={{ color: "#333", transform: expanded[group] ? "rotate(180deg)" : "none", transition: "transform 0.2s" }}>▾</span>
             </button>
 
             {expanded[group] && (
-              <div style={{ display:"flex", flexDirection: "column" }}>
-                {exercises.map((ex) => {
-                  const hasData = exerciseNotes[ex]?.notes || exerciseNotes[ex]?.videos?.length;
-                  const firstVideo = exerciseNotes[ex]?.videos?.[0];
-                  return (
-                    <div key={ex} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 18px", borderBottom: "1px solid #1A1A1A" }}>
-                      <button
-                        onClick={() => setModal(ex)}
-                        style={{ background: "none", border: "none", cursor: "pointer", textAlign: "left", flex: 1, padding: 0 }}
-                      >
-                        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                          <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 12, color: hasData ? "#E8FF47" : "#888" }}>{ex}</span>
-                          {firstVideo && (
-                            <a 
-                              href={firstVideo} target="_blank" rel="noreferrer" 
-                              onClick={e => e.stopPropagation()}
-                              style={{ background: "#1A2200", border: "1px solid #3A5500", borderRadius: 4, padding: "2px 6px", fontFamily: "'DM Mono',monospace", fontSize: 9, color: "#8ACA00", textDecoration: "none" }}
-                            >
-                              VIDEO
-                            </a>
-                          )}
-                        </div>
-                      </button>
-                      <button 
-                        onClick={() => handleDeleteExercise(group, ex)}
-                        style={{ background: "none", border: "none", color: "#2E2E2E", cursor: "pointer", padding: "4px", fontSize: "14px" }}
-                        onMouseEnter={e => e.target.style.color = "#FF6B6B"}
-                        onMouseLeave={e => e.target.style.color = "#2E2E2E"}
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  );
-                })}
-
-                {/* ── Inline add row ── */}
-                <div style={{ display: "flex", gap: 8, padding: "10px 14px", borderTop: "1px solid #1E1E1E", background: "#0E0E0E", alignItems: "center", flexWrap: "wrap" }}>
-                  <input
-                    value={getAdd(group).name}
-                    onChange={e => setAdd(group, { name: e.target.value })}
-                    onKeyDown={e => { if (e.key === "Enter") handleAddExercise(group); }}
-                    placeholder="New exercise name..."
-                    style={{ flex: 2, minWidth: 140, background: "#141414", border: "1px solid #252525", borderRadius: 6, color: "#F5F0E8", padding: "7px 10px", fontFamily: "'DM Mono',monospace", fontSize: 11, outline: "none" }}
-                    onFocus={e => e.target.style.borderColor = "#E8FF47"}
-                    onBlur={e => e.target.style.borderColor = "#252525"}
-                  />
-                  <input
-                    value={getAdd(group).link}
-                    onChange={e => setAdd(group, { link: e.target.value })}
-                    onKeyDown={e => { if (e.key === "Enter") handleAddExercise(group); }}
-                    placeholder="YouTube link (optional)"
-                    style={{ flex: 3, minWidth: 160, background: "#141414", border: "1px solid #252525", borderRadius: 6, color: "#F5F0E8", padding: "7px 10px", fontFamily: "'DM Mono',monospace", fontSize: 11, outline: "none" }}
-                    onFocus={e => e.target.style.borderColor = "#E8FF47"}
-                    onBlur={e => e.target.style.borderColor = "#252525"}
-                  />
-                  <button
-                    onClick={() => handleAddExercise(group)}
-                    className="add-btn"
-                    style={{ padding: "6px 14px", fontSize: 11, whiteSpace: "nowrap" }}
-                  >
-                    + Add
-                  </button>
-                </div>
-              </div>
+              <ExerciseGroupBody
+                group={group}
+                exercises={search === "" ? (exerciseLibrary[group] || []) : exercises}
+                exerciseNotes={exerciseNotes}
+                onModal={setModal}
+                onDelete={(ex) => handleDeleteExercise(group, ex)}
+                onReorder={(newList) => onUpdateLibrary({ ...exerciseLibrary, [group]: newList })}
+                canDrag={search === ""}
+                addState={getAdd(group)}
+                onAddChange={(patch) => setAdd(group, patch)}
+                onAddSubmit={() => handleAddExercise(group)}
+              />
             )}
           </div>
         ))}
@@ -841,7 +854,7 @@ export default function GymSplitPlanner() {
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" strokeWidth="2.5" strokeLinecap="round"><path d="M6 4v16M18 4v16M2 8h4M18 8h4M2 16h4M18 16h4"/></svg>
           </div>
           <div>
-            <div style={{ fontFamily:"'Barlow Condensed',sans-serif", fontWeight:900, fontSize:16, letterSpacing:"0.04em", textTransform:"uppercase", lineHeight:1 }}>Split Planner</div>
+            <div style={{ fontFamily:"'Barlow Condensed',sans-serif", fontWeight:900, fontSize:16, letterSpacing:"0.04em", textTransform:"uppercase", lineHeight:1 }}>Gains Planner</div>
             <div style={{ fontSize:10, color:"#3A3A3A", marginTop:1, fontFamily:"'DM Mono',monospace" }}>4-day upper / lower</div>
           </div>
         </div>
@@ -881,7 +894,7 @@ export default function GymSplitPlanner() {
       {view==="plan" && (
         <div style={{ padding:"24px" }}>
           <div style={{ marginBottom:22 }}>
-            <div style={{ fontFamily:"'Barlow Condensed',sans-serif", fontWeight:900, fontSize:46, lineHeight:1, textTransform:"uppercase" }}>Your <span style={{ color:"#E8FF47" }}>Program</span></div>
+            <div style={{ fontFamily:"'Barlow Condensed',sans-serif", fontWeight:900, fontSize:46, lineHeight:1, textTransform:"uppercase" }}>Weekly <span style={{ color:"#E8FF47" }}>Split</span></div>
             <div style={{ fontFamily:"'DM Mono',monospace", fontSize:11, color:"#3A3A3A", marginTop:5 }}>⠿ drag to reorder · ✕ to deactivate · expand inactive to add groups</div>
           </div>
           <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(290px,1fr))", gap:12 }}>
