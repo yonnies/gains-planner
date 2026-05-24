@@ -1,10 +1,10 @@
 {
   "groupLabels": {
-    "compounds": "Compounds",
-    "glutes": "Glutes",
+    "lungeVariations": "Lunge Movement",
+    "squatVariations": "Squat Movement",
+    "deadliftVariations": "Deadlift Movement",
+    "hipThrustVariations": "Hip Thrust Movement",
     "sideGlutes": "Side Glutes",
-    "hamstrings": "Hamstrings",
-    "quads": "Quads",
     "upperBack": "Upper Back",
     "lowerBack": "Lower Back",
     "chest": "Chest",
@@ -14,11 +14,71 @@
     "biceps": "Biceps"
   },
   "exerciseLibrary": {
-    "compounds": ["Barbell Back Squat", "Barbell Front Squat", "Conventional Deadlift", "Sumo Deadlift", "Trap Bar Deadlift", "Bulgarian Split Squat", "Walking Lunges", "Step-Up", "Hack Squat", "Leg Press", "Sumo Deficit Deadlift", "High Bar Sumo Squat", "Romanian Deadlift (RDL)"],
-    "glutes": ["Hip Thrust", "Barbell Hip Thrust", "Cable Kickback", "Glute Bridge", "Single-Leg Hip Thrust", "Donkey Kick", "Banded Frog Pump", "45° Back Extension (Glute Focus)", "Romanian Deadlift (RDL)", "Sumo Deficit Deadlift", "High Bar Sumo Squat", "Deficit Rear-Foot-Elevated Lunge", "Conventional Deficit Deadlift", "\"Dr. Mike\" Glute Deficit Deadlift", "Dumbbell Sumo Squat", "Single Leg Deadlift (B-Stance)"],
-    "sideGlutes": ["Hip Abduction Machine", "Banded Side Walk", "Cable Hip Abduction", "Side-Lying Clamshell", "Standing Cable Abduction", "Lateral Band Walk", "Sumo Squat", "Curtsy Lunge", "TRX Side Lunge", "Lateral Lunges"],
-    "hamstrings": ["Seated Hamstring Curl", "Lying Hamstring Curl", "Single-Leg RDL", "Romanian Deadlift (RDL)", "Nordic Curl", "Good Morning", "Glute-Ham Raise", "Swiss Ball Curl", "Stiff-Leg Deadlift", "Stiff-Legged Deficit Deadlift", "Single-Leg Deadlift"],
-    "quads": ["Leg Extension", "Goblet Squat", "Leg Press", "Step-Up", "Sissy Squat", "Spanish Squat", "Terminal Knee Extension", "Wall Sit", "Cyclist Squat", "Hack Squat", "Smith Machine Front-Foot-Elevated Lunge", "Heel-Elevated Squat Dropset (Quad Focus)", "High Bar Sumo Squat", "Deficit Rear-Foot-Elevated Lunge", "Reverse Lunges", "Step-Downs", "Pistol Squat (Assisted)", "Single-Leg Press"],
+    "lungeVariations": [
+      "Bulgarian Split Squat",
+      "Walking Lunges",
+      "Smith Machine Lunges With Leg Lift",
+      "Front Foot Elevated Lunges",
+      "Smith Machine Front-Foot-Elevated Lunge",
+      "Deficit Rear-Foot-Elevated Lunge",
+      "Reverse Lunges",
+      "Curtsy Lunge",
+      "Step-Up",
+      "Step-Downs",
+      "TRX Side Lunge",
+      "Lateral Lunges",
+      "Single-Leg Press"
+    ],
+    "squatVariations": [
+      "Barbell Back Squat",
+      "Barbell Front Squat",
+      "Hack Squat",
+      "Goblet Squat",
+      "Leg Press",
+      "High Bar Sumo Squat",
+      "Dumbbell Sumo Squat",
+      "Sissy Squat",
+      "Cyclist Squat",
+      "Heel-Elevated Squat Dropset (Quad Focus)",
+      "Spanish Squat",
+      "Wall Sit",
+      "Terminal Knee Extension",
+      "Pistol Squat (Assisted)"
+    ],
+    "deadliftVariations": [
+      "Conventional Deadlift",
+      "Sumo Deadlift",
+      "Trap Bar Deadlift",
+      "Romanian Deadlift (RDL)",
+      "Sumo Deficit Deadlift",
+      "Conventional Deficit Deadlift",
+      "Stiff-Leg Deadlift",
+      "Stiff-Legged Deficit Deadlift",
+      "\"Dr. Mike\" Glute Deficit Deadlift",
+      "Single-Leg RDL",
+      "Single-Leg Deadlift",
+      "Single Leg Deadlift (B-Stance)",
+      "Good Morning"
+    ],
+    "hipThrustVariations": [
+      "Hip Thrust",
+      "Barbell Hip Thrust",
+      "Single-Leg Hip Thrust",
+      "Glute Bridge",
+      "Banded Frog Pump",
+      "45° Back Extension (Glute Focus)",
+      "Cable Kickback",
+      "Donkey Kick"
+    ],
+    "sideGlutes": [
+      "Hip Abduction Machine",
+      "Banded Side Walk",
+      "Lateral Band Walk",
+      "Cable Hip Abduction",
+      "Standing Cable Abduction",
+      "Side-Lying Clamshell",
+      "Dumbbell Hip Abduction"
+    ],
     "upperBack": ["Lat Pulldown", "Seated Cable Row", "Chest Supported Row", "Pull-Up", "Face Pull", "Pendlay Row", "T-Bar Row", "Single-Arm Dumbbell Row", "Meadows Row", "Cable Pullover", "Inverted Row"],
     "lowerBack": ["Back Extension", "Good Morning", "Romanian Deadlift (RDL)", "Reverse Hyperextension", "Superman", "Bird Dog", "Deadlift", "45° Back Extension", "Banded Good Morning"],
     "chest": ["Bench Press", "Incline Dumbbell Press", "Push-Up", "Cable Fly", "Chest Press Machine", "Decline Bench Press", "Pec Deck", "Dumbbell Pullover", "Low Cable Crossover", "Dips"],
@@ -51,10 +111,6 @@
     "Deficit Rear-Foot-Elevated Lunge": {
       "videos": ["http://www.youtube.com/watch?v=AgogBuofpE8&t=424s"],
       "notes": "Performed on an elevated platform. Place the top of your back foot (shoelaces down) flat on the ground/pad. As you drive upward, focus completely on using your front leg and glute; the back leg is strictly a stabilizer. Lower down slowly until the back knee gently touches the ground for an extreme eccentric stretch. Take a 60-second rest between switching sides."
-    },
-    "Lying Hamstring Curl": {
-      "videos": ["http://www.youtube.com/watch?v=AgogBuofpE8&t=818s"],
-      "notes": "Performed on a properly leveraged machine where resistance is heaviest at the bottom and tapers off on the way up. Milk the eccentric (lowering) phase for several seconds, fully stretch the hamstrings, and pause briefly at the bottom. Explode and accelerate the weight out of the bottom position to reach full contraction."
     },
     "Conventional Deficit Deadlift": {
       "videos": ["http://www.youtube.com/watch?v=mzjX21QqazI&t=127s"],
@@ -89,9 +145,15 @@
     "lowerA": {
       "title": "Lower A",
       "subtitle": "Posterior Chain Focus",
-      "allGroups": ["compounds", "glutes", "sideGlutes", "hamstrings", "quads"],
-      "activeGroups": ["compounds", "glutes", "hamstrings", "quads"],
-      "selected": { "compounds": "Barbell Back Squat", "glutes": "Hip Thrust", "sideGlutes": "Hip Abduction Machine", "hamstrings": "Seated Hamstring Curl", "quads": "Leg Extension" }
+      "allGroups": ["lungeVariations", "squatVariations", "deadliftVariations", "hipThrustVariations", "sideGlutes"],
+      "activeGroups": ["lungeVariations", "squatVariations", "deadliftVariations", "hipThrustVariations"],
+      "selected": {
+        "lungeVariations": "Bulgarian Split Squat",
+        "squatVariations": "Barbell Back Squat",
+        "deadliftVariations": "Romanian Deadlift (RDL)",
+        "hipThrustVariations": "Hip Thrust",
+        "sideGlutes": "Hip Abduction Machine"
+      }
     },
     "upperA": {
       "title": "Upper A",
@@ -103,9 +165,15 @@
     "lowerB": {
       "title": "Lower B",
       "subtitle": "Quad Focus",
-      "allGroups": ["compounds", "glutes", "sideGlutes", "hamstrings", "quads"],
-      "activeGroups": ["compounds", "glutes", "hamstrings", "quads"],
-      "selected": { "compounds": "Bulgarian Split Squat", "glutes": "Barbell Hip Thrust", "sideGlutes": "Banded Side Walk", "hamstrings": "Nordic Curl", "quads": "Hack Squat" }
+      "allGroups": ["lungeVariations", "squatVariations", "deadliftVariations", "hipThrustVariations", "sideGlutes"],
+      "activeGroups": ["lungeVariations", "squatVariations", "deadliftVariations", "hipThrustVariations"],
+      "selected": {
+        "lungeVariations": "Smith Machine Front-Foot-Elevated Lunge",
+        "squatVariations": "Hack Squat",
+        "deadliftVariations": "Sumo Deficit Deadlift",
+        "hipThrustVariations": "Barbell Hip Thrust",
+        "sideGlutes": "Banded Side Walk"
+      }
     },
     "upperB": {
       "title": "Upper B",

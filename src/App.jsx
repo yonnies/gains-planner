@@ -15,7 +15,12 @@ const WISDOM_CATEGORIES = ["Technique","Programming","Recovery","Nutrition","Min
 function buildDefault(gymData) {
   const days = {};
   for (const [key, tpl] of Object.entries(gymData.dayTemplates || {})) {
-    days[key] = { title:tpl.title, subtitle:tpl.subtitle, allGroups:[...tpl.allGroups], activeGroups:[...tpl.activeGroups], selected:{...tpl.selected} };
+    // Build index-keyed selected so groups can repeat
+    const selected = {};
+    (tpl.activeGroups || []).forEach((group, i) => {
+      selected[String(i)] = tpl.selected?.[group] || tpl.selected?.[String(i)] || (gymData.exerciseLibrary?.[group]?.[0] ?? "");
+    });
+    days[key] = { title:tpl.title, subtitle:tpl.subtitle, allGroups:[...tpl.allGroups], activeGroups:[...tpl.activeGroups], selected };
   }
   return { 
     days, 
@@ -59,36 +64,67 @@ function useDragReorder(list, onReorder) {
     handleDragEnter: i => { dragOver.current = i; },
     handleDragEnd: () => {
       if (dragItem.current === null || dragOver.current === null || dragItem.current === dragOver.current) { dragItem.current = dragOver.current = null; return; }
-      const copy = [...list]; const [moved] = copy.splice(dragItem.current, 1); copy.splice(dragOver.current, 0, moved);
-      dragItem.current = dragOver.current = null; onReorder(copy);
+      const from = dragItem.current, to = dragOver.current;
+      const copy = [...list]; const [moved] = copy.splice(from, 1); copy.splice(to, 0, moved);
+      dragItem.current = dragOver.current = null; onReorder(copy, from, to);
     },
   };
 }
 
 // ─── GroupRow ─────────────────────────────────────────────────────────────────
-function GroupRow({ group, library, value, onSelect, onDeactivate, dragHandlers, index }) {
+function GroupRow({ group, rowIndex, library, value, onSelect, onDeactivate, dragHandlers, index }) {
   const exercises = library[group] || [];
   return (
     <div draggable onDragStart={() => dragHandlers.handleDragStart(index)} onDragEnter={() => dragHandlers.handleDragEnter(index)} onDragEnd={dragHandlers.handleDragEnd} onDragOver={e => e.preventDefault()}
       style={{ display:"flex", alignItems:"center", gap:8, padding:"9px 0", borderBottom:"1px solid #1C1C1C", userSelect:"none" }}>
       <div title="Drag to reorder" style={{ color:"#2E2E2E", fontSize:16, cursor:"grab", flexShrink:0, lineHeight:1 }}>⠿</div>
       <div style={{ fontFamily:"'Barlow Condensed',sans-serif", fontWeight:800, fontSize:11, letterSpacing:"0.1em", textTransform:"uppercase", color:"#555", width:86, flexShrink:0 }}>{GROUP_LABELS[group]}</div>
-      <select className="ex-select" value={value || exercises[0]} onChange={e => onSelect(group, e.target.value)} onMouseDown={e => e.stopPropagation()} draggable={false}>
+      <select className="ex-select" value={value || exercises[0]} onChange={e => onSelect(rowIndex, e.target.value)} onMouseDown={e => e.stopPropagation()} draggable={false}>
         {exercises.map(ex => <option key={ex} value={ex}>{ex}</option>)}
       </select>
-      <button onClick={() => onDeactivate(group)} className="deact-btn">✕</button>
+      <button onClick={() => onDeactivate(rowIndex)} className="deact-btn">✕</button>
     </div>
   );
 }
 
 // ─── DayCard ──────────────────────────────────────────────────────────────────
 function DayCard({ dayKey, day, library, onUpdate, accent }) {
-  const [inactiveOpen, setInactiveOpen] = React.useState(false);
-  const inactiveGroups = day.allGroups.filter(g => !day.activeGroups.includes(g));
-  const activate   = g => onUpdate(dayKey, { activeGroups:[...day.activeGroups, g] });
-  const deactivate = g => onUpdate(dayKey, { activeGroups:day.activeGroups.filter(x => x !== g) });
-  const onSelect   = (g, v) => onUpdate(dayKey, { selected:{...day.selected, [g]:v} });
-  const drag       = useDragReorder(day.activeGroups, newOrder => onUpdate(dayKey, { activeGroups:newOrder }));
+  const [addGroupKey, setAddGroupKey] = React.useState(day.allGroups[0] || "");
+
+  const deactivate = (rowIndex) => {
+    const newGroups = [...day.activeGroups];
+    newGroups.splice(rowIndex, 1);
+    const newSelected = {};
+    newGroups.forEach((g, i) => {
+      const oldIdx = i < rowIndex ? i : i + 1;
+      newSelected[String(i)] = day.selected[String(oldIdx)] || library[g]?.[0] || "";
+    });
+    onUpdate(dayKey, { activeGroups: newGroups, selected: newSelected });
+  };
+
+  const onSelect = (rowIndex, value) => {
+    onUpdate(dayKey, { selected: { ...day.selected, [String(rowIndex)]: value } });
+  };
+
+  const addGroup = () => {
+    if (!addGroupKey) return;
+    const newIndex = day.activeGroups.length;
+    onUpdate(dayKey, {
+      activeGroups: [...day.activeGroups, addGroupKey],
+      selected: { ...day.selected, [String(newIndex)]: library[addGroupKey]?.[0] || "" },
+    });
+  };
+
+  const drag = useDragReorder(day.activeGroups, (newOrder, from, to) => {
+    const oldValues = day.activeGroups.map((_, i) => day.selected[String(i)]);
+    const newValues = [...oldValues];
+    const [movedVal] = newValues.splice(from, 1);
+    newValues.splice(to, 0, movedVal);
+    const newSelected = {};
+    newValues.forEach((v, i) => { newSelected[String(i)] = v; });
+    onUpdate(dayKey, { activeGroups: newOrder, selected: newSelected });
+  });
+
   return (
     <div style={{ background:"#141414", border:"1px solid #242424", borderRadius:12, padding:"20px 18px", position:"relative", overflow:"hidden" }}>
       <div style={{ position:"absolute", right:12, top:6, fontFamily:"'Barlow Condensed',sans-serif", fontWeight:900, fontSize:68, lineHeight:1, opacity:0.055, pointerEvents:"none", color:"#fff", userSelect:"none" }}>{DAY_INDEX[dayKey]}</div>
@@ -102,26 +138,23 @@ function DayCard({ dayKey, day, library, onUpdate, accent }) {
       </div>
       <div style={{ height:1, background:"#1E1E1E", marginBottom:2 }} />
       {day.activeGroups.map((group, i) => (
-        <GroupRow key={group} group={group} library={library} value={day.selected[group] || library[group]?.[0]} onSelect={onSelect} onDeactivate={deactivate} dragHandlers={drag} index={i} />
+        <GroupRow key={`${group}-${i}`} group={group} rowIndex={i} library={library} value={day.selected[String(i)] || library[group]?.[0]} onSelect={onSelect} onDeactivate={deactivate} dragHandlers={drag} index={i} />
       ))}
-      {inactiveGroups.length > 0 && (
-        <div style={{ marginTop:10 }}>
-          <button onClick={() => setInactiveOpen(o => !o)} style={{ width:"100%", background:"#0A0A0A", border:"1px solid #1E1E1E", borderRadius:7, padding:"7px 12px", display:"flex", alignItems:"center", justifyContent:"space-between", cursor:"pointer", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:800, fontSize:11, letterSpacing:"0.1em", textTransform:"uppercase", color:"#3A3A3A" }}>
-            <span>Inactive Groups ({inactiveGroups.length})</span>
-            <span style={{ display:"inline-block", transform:inactiveOpen?"rotate(180deg)":"none", transition:"transform 0.2s" }}>▾</span>
-          </button>
-          {inactiveOpen && (
-            <div style={{ marginTop:4, background:"#0A0A0A", border:"1px solid #1A1A1A", borderRadius:7, overflow:"hidden" }}>
-              {inactiveGroups.map((group, gi) => (
-                <div key={group} style={{ display:"flex", alignItems:"center", justifyContent:"space-between", padding:"8px 12px", borderBottom:gi<inactiveGroups.length-1?"1px solid #141414":"none" }}>
-                  <span style={{ fontFamily:"'Barlow Condensed',sans-serif", fontWeight:800, fontSize:11, letterSpacing:"0.1em", textTransform:"uppercase", color:"#3A3A3A" }}>{GROUP_LABELS[group]}</span>
-                  <button onClick={() => activate(group)} className="add-btn">+ Add</button>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
+      {/* ── Add Group ── */}
+      <div style={{ marginTop:10, display:"flex", gap:8, alignItems:"center" }}>
+        <select
+          value={addGroupKey}
+          onChange={e => setAddGroupKey(e.target.value)}
+          style={{ flex:1, background:"#0A0A0A", border:"1px solid #1E1E1E", borderRadius:7, color:"#555", padding:"7px 10px", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:800, fontSize:11, letterSpacing:"0.08em", textTransform:"uppercase", cursor:"pointer", outline:"none", appearance:"none",
+            backgroundImage:"url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E\")",
+            backgroundRepeat:"no-repeat", backgroundPosition:"right 10px center", paddingRight:30 }}
+        >
+          {day.allGroups.map(g => (
+            <option key={g} value={g}>{GROUP_LABELS[g] || g}</option>
+          ))}
+        </select>
+        <button onClick={addGroup} className="add-btn" style={{ padding:"7px 14px", whiteSpace:"nowrap", flexShrink:0 }}>+ Add</button>
+      </div>
     </div>
   );
 }
@@ -156,10 +189,10 @@ function HistoryView({ history, onBack, onRestore }) {
                   {Object.entries(session.days).map(([dayKey, day]) => (
                     <div key={dayKey} style={{ background:"#0D0D0D", border:"1px solid #1C1C1C", borderRadius:8, padding:"10px 12px" }}>
                       <div style={{ fontFamily:"'Barlow Condensed',sans-serif", fontWeight:900, fontSize:12, textTransform:"uppercase", letterSpacing:"0.08em", color:"#555", marginBottom:6 }}>{day.title}</div>
-                      {day.activeGroups.map(group => (
-                        <div key={group} style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", padding:"3px 0", borderBottom:"1px solid #141414", gap:8 }}>
+                      {day.activeGroups.map((group, gi) => (
+                        <div key={`${group}-${gi}`} style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", padding:"3px 0", borderBottom:"1px solid #141414", gap:8 }}>
                           <span style={{ fontFamily:"'DM Mono',monospace", fontSize:9, color:"#3A3A3A", textTransform:"uppercase", letterSpacing:"0.06em", flexShrink:0 }}>{GROUP_LABELS[group]}</span>
-                          <span style={{ fontFamily:"'DM Mono',monospace", fontSize:10, color:"#777", textAlign:"right" }}>{day.selected[group]}</span>
+                          <span style={{ fontFamily:"'DM Mono',monospace", fontSize:10, color:"#777", textAlign:"right" }}>{day.selected[String(gi)] ?? day.selected[group]}</span>
                         </div>
                       ))}
                     </div>
@@ -696,6 +729,17 @@ export default function GymSplitPlanner() {
           saved.exerciseLibrary = { ...EXERCISE_LIBRARY, ...(saved.exerciseLibrary || {}) };
           // Merge new notes from gym_data.json without overwriting user edits
           saved.exerciseNotes = { ...(gymData.exerciseNotes || {}), ...(saved.exerciseNotes || {}) };
+          // Migrate selected from old group-name keys → index keys
+          for (const key of Object.keys(saved.days || {})) {
+            const day = saved.days[key];
+            if (day && day.activeGroups && day.activeGroups.length > 0 && day.selected && day.selected["0"] === undefined) {
+              const newSelected = {};
+              day.activeGroups.forEach((group, i) => {
+                newSelected[String(i)] = day.selected[group] || day.selected[String(i)] || (EXERCISE_LIBRARY[group]?.[0] ?? "");
+              });
+              saved.days[key] = { ...day, selected: newSelected };
+            }
+          }
           setState(saved);
         } else {
           // First run — build defaults from gym_data.json
