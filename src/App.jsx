@@ -1,4 +1,5 @@
 import React from "react";
+import ReactMarkdown from "react-markdown";
 
 // These will be populated after fetching /api/gymdata on mount.
 // We use module-level vars so helper functions outside the component can access them.
@@ -214,12 +215,9 @@ function YouTubeThumbnail({ url, onRemove }) {
     <div style={{ position:"relative", borderRadius:8, overflow:"hidden", border:"1px solid #222" }}>
       <a href={`https://www.youtube.com/watch?v=${id}`} target="_blank" rel="noreferrer" style={{ display:"block" }}>
         <img src={`https://img.youtube.com/vi/${id}/mqdefault.jpg`} alt="video" style={{ width:"100%", display:"block", aspectRatio:"16/9", objectFit:"cover" }} />
-        <div style={{ position:"absolute", inset:0, display:"flex", alignItems:"center", justifyContent:"center", background:"rgba(0,0,0,0.35)", transition:"background 0.15s" }}
-          onMouseEnter={e => e.currentTarget.style.background="rgba(0,0,0,0.15)"}
-          onMouseLeave={e => e.currentTarget.style.background="rgba(0,0,0,0.35)"}>
-          <div style={{ width:44, height:44, background:"rgba(232,255,71,0.92)", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center" }}>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="#0D0D0D"><path d="M6 3.5l7 4.5-7 4.5V3.5z"/></svg>
-          </div>
+        <div style={{ position:"absolute", inset:0, display:"flex", alignItems:"center", justifyContent:"center", background:"rgba(0,0,0,0.1)", transition:"background 0.15s" }}
+          onMouseEnter={e => e.currentTarget.style.background="rgba(0,0,0,0.0)"}
+          onMouseLeave={e => e.currentTarget.style.background="rgba(0,0,0,0.1)"}>
         </div>
       </a>
       {onRemove && (
@@ -511,20 +509,16 @@ function KnowledgeView({ exerciseLibrary, onUpdateLibrary, exerciseNotes, onUpda
 // ─── Wisdom Modal ─────────────────────────────────────────────────────────────
 function WisdomModal({ entry, onSave, onClose }) {
   const isNew = !entry;
-  const [title,    setTitle]    = React.useState(entry?.title    || "");
-  const [category, setCategory] = React.useState(entry?.category || WISDOM_CATEGORIES[0]);
-  const [notes,    setNotes]    = React.useState(entry?.notes    || "");
-  const [videoUrl, setVideoUrl] = React.useState("");
-  const [videos,   setVideos]   = React.useState(entry?.videos   || []);
+  const [title, setTitle] = React.useState(entry?.title || "");
+  const [video, setVideo] = React.useState(entry?.video || (entry?.videos && entry.videos[0]) || "");
 
-  const addVideo = () => {
-    const trimmed = videoUrl.trim(); if (!trimmed) return;
-    if (!extractYouTubeId(trimmed)) { alert("Paste a valid YouTube URL"); return; }
-    setVideos(v => [...v, trimmed]); setVideoUrl("");
-  };
   const save = () => {
     if (!title.trim()) { alert("Please add a title"); return; }
-    onSave({ title:title.trim(), category, notes, videos, updatedAt: new Date().toISOString() });
+    let videoUrl = video.trim();
+    if (videoUrl && !extractYouTubeId(videoUrl)) { alert("Paste a valid YouTube URL"); return; }
+    
+    // Merge updates into the entry so we don't lose the filename or other hidden properties
+    onSave({ ...entry, title:title.trim(), video:videoUrl, updatedAt: new Date().toISOString() });
     onClose();
   };
 
@@ -532,7 +526,7 @@ function WisdomModal({ entry, onSave, onClose }) {
     <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.75)", zIndex:100, display:"flex", alignItems:"center", justifyContent:"center", padding:20 }} onClick={onClose}>
       <div style={{ background:"#161616", border:"1px solid #2A2A2A", borderRadius:14, width:"100%", maxWidth:560, maxHeight:"90vh", overflowY:"auto", padding:"28px" }} onClick={e => e.stopPropagation()}>
         <div style={{ display:"flex", alignItems:"flex-start", justifyContent:"space-between", marginBottom:22 }}>
-          <div style={{ fontFamily:"'Barlow Condensed',sans-serif", fontWeight:900, fontSize:24, textTransform:"uppercase" }}>{isNew?"New Wisdom Entry":"Edit Entry"}</div>
+          <div style={{ fontFamily:"'Barlow Condensed',sans-serif", fontWeight:900, fontSize:24, textTransform:"uppercase" }}>{isNew?"New Wisdom Entry":"Edit Metadata"}</div>
           <button onClick={onClose} style={{ background:"none", border:"none", color:"#555", cursor:"pointer", fontSize:20, lineHeight:1 }}>✕</button>
         </div>
 
@@ -543,41 +537,11 @@ function WisdomModal({ entry, onSave, onClose }) {
             onFocus={e => e.target.style.borderColor="#E8FF47"} onBlur={e => e.target.style.borderColor="#2A2A2A"} />
         </div>
 
-        <div style={{ marginBottom:16 }}>
-          <div className="field-label">Category</div>
-          <div style={{ display:"flex", gap:6, flexWrap:"wrap" }}>
-            {WISDOM_CATEGORIES.map(cat => (
-              <button key={cat} onClick={() => setCategory(cat)} style={{ background:category===cat?"#1A2200":"#0D0D0D", border:`1px solid ${category===cat?"#E8FF47":"#2A2A2A"}`, borderRadius:6, color:category===cat?"#E8FF47":"#555", padding:"5px 12px", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:800, fontSize:11, letterSpacing:"0.08em", textTransform:"uppercase", cursor:"pointer" }}>
-                {cat}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div style={{ marginBottom:16 }}>
-          <div className="field-label">Notes</div>
-          <textarea value={notes} onChange={e => setNotes(e.target.value)} placeholder="Write your insight, cue, or summary..."
-            style={{ width:"100%", background:"#0D0D0D", border:"1px solid #2A2A2A", borderRadius:8, color:"#F5F0E8", padding:"12px 14px", fontFamily:"'DM Mono',monospace", fontSize:12, lineHeight:1.6, resize:"vertical", minHeight:100, outline:"none" }}
-            onFocus={e => e.target.style.borderColor="#E8FF47"} onBlur={e => e.target.style.borderColor="#2A2A2A"} />
-        </div>
-
-        {videos.length > 0 && (
-          <div style={{ marginBottom:16 }}>
-            <div className="field-label">Videos ({videos.length})</div>
-            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(160px,1fr))", gap:8 }}>
-              {videos.map((url,i) => <YouTubeThumbnail key={url+i} url={url} onRemove={() => setVideos(v => v.filter((_,j)=>j!==i))} />)}
-            </div>
-          </div>
-        )}
-
         <div style={{ marginBottom:24 }}>
-          <div className="field-label">Add YouTube Video</div>
-          <div style={{ display:"flex", gap:8 }}>
-            <input value={videoUrl} onChange={e => setVideoUrl(e.target.value)} onKeyDown={e => { if(e.key==="Enter") addVideo(); }} placeholder="https://youtube.com/watch?v=..."
-              style={{ flex:1, background:"#0D0D0D", border:"1px solid #2A2A2A", borderRadius:8, color:"#F5F0E8", padding:"9px 12px", fontFamily:"'DM Mono',monospace", fontSize:12, outline:"none" }}
-              onFocus={e => e.target.style.borderColor="#E8FF47"} onBlur={e => e.target.style.borderColor="#2A2A2A"} />
-            <button onClick={addVideo} className="accent-btn">Add</button>
-          </div>
+          <div className="field-label">YouTube Video Link</div>
+          <input value={video} onChange={e => setVideo(e.target.value)} placeholder="https://youtube.com/watch?v=..."
+            style={{ width:"100%", background:"#0D0D0D", border:"1px solid #2A2A2A", borderRadius:8, color:"#F5F0E8", padding:"9px 12px", fontFamily:"'DM Mono',monospace", fontSize:13, outline:"none" }}
+            onFocus={e => e.target.style.borderColor="#E8FF47"} onBlur={e => e.target.style.borderColor="#2A2A2A"} />
         </div>
 
         <div style={{ display:"flex", gap:10, justifyContent:"flex-end" }}>
@@ -589,11 +553,75 @@ function WisdomModal({ entry, onSave, onClose }) {
   );
 }
 
+// ─── Wisdom Entry Detail (Markdown + Editing) ─────────────────────────────────
+function WisdomEntryDetail({ entry, onUpdateEntry }) {
+  const [content, setContent] = React.useState("");
+  const [editing, setEditing] = React.useState(false);
+  const [loading, setLoading] = React.useState(!!entry.filename);
+
+  React.useEffect(() => {
+    if (entry.filename && !editing) {
+      setLoading(true);
+      fetch(`/api/notes/${entry.filename}`)
+        .then(res => res.json())
+        .then(data => { setContent(data.content || ""); setLoading(false); })
+        .catch(err => { console.error(err); setLoading(false); });
+    } else if (!entry.filename) {
+      setContent(entry.notes || "");
+    }
+  }, [entry.filename, editing]);
+
+  const handleSave = async () => {
+    if (entry.filename) {
+      await fetch(`/api/notes/${entry.filename}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content })
+      });
+      setEditing(false);
+    } else {
+      onUpdateEntry({ ...entry, notes: content });
+      setEditing(false);
+    }
+  };
+
+  const videoCount = entry.video ? 1 : entry.videos?.length || 0;
+  const videos = entry.video ? [entry.video] : entry.videos || [];
+
+  return (
+    <div style={{ borderTop:"1px solid #1A1A1A", padding:"16px 18px" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 12 }}>
+        <h3 style={{ margin: 0, color: "#47FFD4", fontFamily:"'Barlow Condensed',sans-serif", letterSpacing:"0.05em", textTransform:"uppercase" }}>Notes {entry.filename && "(Markdown)"}</h3>
+        <button onClick={() => editing ? handleSave() : setEditing(true)} className="accent-btn" style={{ padding: "4px 12px", fontSize: 11 }}>
+          {editing ? "Save" : "Edit Markdown"}
+        </button>
+      </div>
+
+      {!entry.video && videoCount > 0 && (
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))", gap:8, marginBottom: 16 }}>
+          {videos.map((url,i) => <YouTubeThumbnail key={url+i} url={url} />)}
+        </div>
+      )}
+
+      {loading ? (
+        <div style={{ color: "#888", fontFamily:"'DM Mono',monospace", fontSize:12 }}>Loading notes...</div>
+      ) : editing ? (
+        <textarea
+          value={content} onChange={e => setContent(e.target.value)}
+          style={{ width:"100%", background:"#0D0D0D", border:"1px solid #2A2A2A", borderRadius:8, color:"#F5F0E8", padding:"12px 14px", fontFamily:"'DM Mono',monospace", fontSize:12, lineHeight:1.6, resize:"vertical", minHeight:300, outline:"none" }}
+        />
+      ) : (
+        <div style={{ fontFamily:"system-ui, sans-serif", fontSize:14, color:"#A0A0A0", lineHeight:1.7 }} className="markdown-body">
+          {entry.filename ? <ReactMarkdown>{content}</ReactMarkdown> : <div style={{ fontFamily: "'DM Mono',monospace", whiteSpace:"pre-wrap" }}>{content}</div>}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ─── General Wisdom View ──────────────────────────────────────────────────────
 function WisdomView({ entries, onUpdate }) {
   const [modal, setModal]           = React.useState(null); // null | "new" | index
-  const [catFilter, setCatFilter]   = React.useState("all");
-  const [search, setSearch]         = React.useState("");
   const [expanded, setExpanded]     = React.useState({});
 
   const save = (data) => {
@@ -605,17 +633,10 @@ function WisdomView({ entries, onUpdate }) {
   };
   const remove = (i) => { if (confirm("Delete this entry?")) { const copy=[...entries]; copy.splice(i,1); onUpdate(copy); } };
   const toggle = (i) => setExpanded(e => ({ ...e, [i]: !e[i] }));
-
-  const cats = ["all", ...WISDOM_CATEGORIES];
-  const filtered = entries.map((e,i)=>({...e,_i:i})).filter(e => {
-    const matchCat = catFilter==="all" || e.category===catFilter;
-    const matchSearch = !search || e.title.toLowerCase().includes(search.toLowerCase()) || e.notes?.toLowerCase().includes(search.toLowerCase());
-    return matchCat && matchSearch;
-  });
-
-  // group by category
-  const grouped = {};
-  filtered.forEach(e => { if (!grouped[e.category]) grouped[e.category]=[]; grouped[e.category].push(e); });
+  
+  const updateSingleEntry = (index, newData) => {
+    const copy = [...entries]; copy[index] = newData; onUpdate(copy);
+  };
 
   return (
     <div style={{ padding:"28px" }}>
@@ -628,62 +649,49 @@ function WisdomView({ entries, onUpdate }) {
           <div style={{ fontFamily:"'Barlow Condensed',sans-serif", fontWeight:900, fontSize:46, lineHeight:1, textTransform:"uppercase" }}>
             General <span style={{ color:"#47FFD4" }}>Wisdom</span>
           </div>
-          <div style={{ fontFamily:"'DM Mono',monospace", fontSize:11, color:"#444", marginTop:5 }}>{entries.length} entr{entries.length!==1?"ies":"y"} across {[...new Set(entries.map(e=>e.category))].length} categories</div>
+          <div style={{ fontFamily:"'DM Mono',monospace", fontSize:11, color:"#444", marginTop:5 }}>{entries.length} entr{entries.length!==1?"ies":"y"}</div>
         </div>
         <button onClick={() => setModal("new")} className="accent-btn" style={{ padding:"10px 20px" }}>+ New Entry</button>
-      </div>
-
-      {/* Controls */}
-      <div style={{ display:"flex", gap:10, marginBottom:22, flexWrap:"wrap" }}>
-        <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search..."
-          style={{ flex:1, minWidth:160, background:"#141414", border:"1px solid #242424", borderRadius:8, color:"#F5F0E8", padding:"9px 14px", fontFamily:"'DM Mono',monospace", fontSize:12, outline:"none" }}
-          onFocus={e => e.target.style.borderColor="#47FFD4"} onBlur={e => e.target.style.borderColor="#242424"} />
-        <div style={{ display:"flex", gap:6, flexWrap:"wrap" }}>
-          {cats.map(cat => (
-            <button key={cat} onClick={() => setCatFilter(cat)} style={{ background:catFilter===cat?"#001A18":"#141414", border:`1px solid ${catFilter===cat?"#47FFD4":"#242424"}`, borderRadius:6, color:catFilter===cat?"#47FFD4":"#555", padding:"6px 12px", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:800, fontSize:11, letterSpacing:"0.08em", textTransform:"uppercase", cursor:"pointer" }}>
-              {cat}
-            </button>
-          ))}
-        </div>
       </div>
 
       {entries.length === 0 ? (
         <div style={{ border:"1px dashed #1E1E1E", borderRadius:12, padding:"48px", textAlign:"center", color:"#3A3A3A", fontFamily:"'DM Mono',monospace", fontSize:13 }}>
           No entries yet. Hit "+ New Entry" to capture your first insight.
         </div>
-      ) : filtered.length === 0 ? (
-        <div style={{ border:"1px dashed #1E1E1E", borderRadius:12, padding:"32px", textAlign:"center", color:"#3A3A3A", fontFamily:"'DM Mono',monospace", fontSize:13 }}>No entries match your filter.</div>
       ) : (
-        <div style={{ display:"flex", flexDirection:"column", gap:20 }}>
-          {Object.entries(grouped).map(([cat, catEntries]) => (
-            <div key={cat}>
-              <div style={{ fontFamily:"'Barlow Condensed',sans-serif", fontWeight:900, fontSize:12, letterSpacing:"0.14em", textTransform:"uppercase", color:"#47FFD4", marginBottom:10, opacity:0.7 }}>{cat}</div>
-              <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
-                {catEntries.map(entry => {
-                  const isOpen = expanded[entry._i];
-                  const videoCount = entry.videos?.length || 0;
-                  return (
-                    <div key={entry._i} style={{ background:"#141414", border:"1px solid #1E1E1E", borderRadius:10, overflow:"hidden" }}>
-                      <div
-                        onClick={() => toggle(entry._i)}
-                        style={{ display:"flex", alignItems:"center", justifyContent:"space-between", padding:"14px 18px", cursor:"pointer", gap:12 }}
-                        onMouseEnter={e => e.currentTarget.style.background="#191919"}
-                        onMouseLeave={e => e.currentTarget.style.background=""}
-                      >
-                        <div style={{ flex:1, minWidth:0 }}>
-                          <div style={{ fontFamily:"'DM Mono',monospace", fontSize:13, color:"#E0E0E0", marginBottom:3 }}>{entry.title}</div>
-                          {!isOpen && entry.notes && (
-                            <div style={{ fontFamily:"'DM Mono',monospace", fontSize:11, color:"#444", overflow:"hidden", whiteSpace:"nowrap", textOverflow:"ellipsis" }}>{entry.notes}</div>
+        <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
+          {entries.map((entry, index) => {
+            const _i = index;
+            const isOpen = expanded[_i];
+            const videoCount = entry.video ? 1 : entry.videos?.length || 0;
+            return (
+              <div key={_i} style={{ background:"#141414", border:"1px solid #1E1E1E", borderRadius:10, overflow:"hidden" }}>
+                <div
+                  onClick={() => toggle(_i)}
+                  style={{ display:"flex", alignItems:"center", justifyContent:"space-between", padding:"14px 18px", cursor:"pointer", gap:12 }}
+                  onMouseEnter={e => e.currentTarget.style.background="#191919"}
+                  onMouseLeave={e => e.currentTarget.style.background=""}
+                >
+                        <div style={{ flex:1, minWidth:0, display:"flex", alignItems:"center", gap: 14 }}>
+                          {(entry.video || (entry.videos && entry.videos[0])) && (
+                            <div style={{ width: 80, flexShrink:0 }}>
+                              <YouTubeThumbnail url={entry.video || entry.videos[0]} />
+                            </div>
                           )}
+                          <div>
+                            <div style={{ fontFamily:"'DM Mono',monospace", fontSize:13, color:"#E0E0E0", marginBottom:3 }}>{entry.title}</div>
+                            {!isOpen && entry.notes && (
+                              <div style={{ fontFamily:"'DM Mono',monospace", fontSize:11, color:"#444", overflow:"hidden", whiteSpace:"nowrap", textOverflow:"ellipsis", maxWidth:"300px" }}>{entry.notes}</div>
+                            )}
+                          </div>
                         </div>
                         <div style={{ display:"flex", alignItems:"center", gap:8, flexShrink:0 }}>
-                          {videoCount > 0 && <span style={{ background:"#001A18", border:"1px solid #1A4A44", borderRadius:4, padding:"2px 7px", fontFamily:"'DM Mono',monospace", fontSize:9, color:"#47FFD4" }}>▶ {videoCount}</span>}
-                          <button onClick={e => { e.stopPropagation(); setModal(entry._i); }} style={{ background:"none", border:"1px solid #252525", borderRadius:5, color:"#444", fontSize:11, cursor:"pointer", padding:"3px 9px", fontFamily:"'DM Mono',monospace", transition:"color 0.12s, border-color 0.12s" }}
+                          <button onClick={e => { e.stopPropagation(); setModal(_i); }} style={{ background:"none", border:"1px solid #252525", borderRadius:5, color:"#444", fontSize:11, cursor:"pointer", padding:"3px 9px", fontFamily:"'DM Mono',monospace", transition:"color 0.12s, border-color 0.12s" }}
                             onMouseEnter={e => { e.target.style.color="#47FFD4"; e.target.style.borderColor="#47FFD4"; }}
                             onMouseLeave={e => { e.target.style.color="#444"; e.target.style.borderColor="#252525"; }}>
-                            Edit
+                            Edit Metadata
                           </button>
-                          <button onClick={e => { e.stopPropagation(); remove(entry._i); }} style={{ background:"none", border:"none", color:"#2E2E2E", cursor:"pointer", fontSize:14, lineHeight:1, transition:"color 0.12s" }}
+                          <button onClick={e => { e.stopPropagation(); remove(_i); }} style={{ background:"none", border:"none", color:"#2E2E2E", cursor:"pointer", fontSize:14, lineHeight:1, transition:"color 0.12s" }}
                             onMouseEnter={e => e.target.style.color="#FF6B6B"}
                             onMouseLeave={e => e.target.style.color="#2E2E2E"}>✕</button>
                           <span style={{ color:"#333", fontSize:13, display:"inline-block", transform:isOpen?"rotate(180deg)":"none", transition:"transform 0.2s" }}>▾</span>
@@ -691,23 +699,11 @@ function WisdomView({ entries, onUpdate }) {
                       </div>
 
                       {isOpen && (
-                        <div style={{ borderTop:"1px solid #1A1A1A", padding:"16px 18px" }}>
-                          {entry.notes && (
-                            <div style={{ fontFamily:"'DM Mono',monospace", fontSize:12, color:"#888", lineHeight:1.7, marginBottom:videoCount?16:0, whiteSpace:"pre-wrap" }}>{entry.notes}</div>
-                          )}
-                          {videoCount > 0 && (
-                            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))", gap:8 }}>
-                              {entry.videos.map((url,i) => <YouTubeThumbnail key={url+i} url={url} />)}
-                            </div>
-                          )}
-                        </div>
+                        <WisdomEntryDetail entry={entry} onUpdateEntry={(updated) => updateSingleEntry(_i, updated)} />
                       )}
                     </div>
                   );
-                })}
-              </div>
-            </div>
-          ))}
+          })}
         </div>
       )}
     </div>

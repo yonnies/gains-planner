@@ -58,6 +58,32 @@ app.put("/api/state", (req, res) => {
   }
 });
 
+// GET /api/notes/:filename — read a markdown file
+app.get("/api/notes/:filename", (req, res) => {
+  const filePath = path.join(__dirname, "storage", "notes", req.params.filename);
+  if (!fs.existsSync(filePath)) return res.status(404).json({ error: "File not found" });
+  try {
+    const content = fs.readFileSync(filePath, "utf8");
+    res.json({ content });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// PUT /api/notes/:filename — write a markdown file
+app.put("/api/notes/:filename", (req, res) => {
+  const filePath = path.join(__dirname, "storage", "notes", req.params.filename);
+  try {
+    const tmp = filePath + ".tmp";
+    fs.writeFileSync(tmp, req.body.content || "", "utf8");
+    fs.renameSync(tmp, filePath);
+    res.json({ ok: true });
+  } catch (err) {
+    console.error("Failed to write note:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // ─── Start ────────────────────────────────────────────────────────────────────
 
 app.listen(PORT, () => {

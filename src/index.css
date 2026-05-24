@@ -9,3 +9,43 @@ html, body, #root {
 #root {
   display: block; /* Overrides flex centering if present */
 }
+
+/* Markdown styling fixes */
+.markdown-body p,
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+.markdown-body hr {
+  margin: 14px 0;
+  border: 0;
+  border-top: 1px solid #2a2a2a;
+}
+.markdown-body ul, .markdown-body ol {
+  padding-left: 20px;
+  margin-top: 4px;
+  margin-bottom: 10px;
+}
+.markdown-body li {
+  margin-bottom: 2px;
+}
+.markdown-body *:first-child {
+  margin-top: 0;
+}
+.markdown-body *:last-child {
+  margin-bottom: 0;
+}
+.markdown-body a {
+  color: #666666;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.markdown-body a:hover {
+  color: #888888;
+  text-decoration: underline;
+}
