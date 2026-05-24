@@ -511,14 +511,31 @@ function WisdomModal({ entry, onSave, onClose }) {
   const isNew = !entry;
   const [title, setTitle] = React.useState(entry?.title || "");
   const [video, setVideo] = React.useState(entry?.video || (entry?.videos && entry.videos[0]) || "");
+  const [markdownContent, setMarkdownContent] = React.useState("");
 
-  const save = () => {
+  const save = async () => {
     if (!title.trim()) { alert("Please add a title"); return; }
     let videoUrl = video.trim();
     if (videoUrl && !extractYouTubeId(videoUrl)) { alert("Paste a valid YouTube URL"); return; }
     
-    // Merge updates into the entry so we don't lose the filename or other hidden properties
-    onSave({ ...entry, title:title.trim(), video:videoUrl, updatedAt: new Date().toISOString() });
+    let filename = entry?.filename;
+
+    if (isNew && markdownContent.trim()) {
+      filename = title.trim().toLowerCase().replace(/[^a-z0-9]+/g, '_') + '.md';
+      try {
+        await fetch(`/api/notes/${filename}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ content: markdownContent })
+        });
+      } catch(err) {
+        console.error("Failed to save markdown", err);
+        alert("Failed to save markdown file to the backend.");
+        return;
+      }
+    }
+    
+    onSave({ ...entry, title:title.trim(), video:videoUrl, filename, updatedAt: new Date().toISOString() });
     onClose();
   };
 
@@ -537,12 +554,21 @@ function WisdomModal({ entry, onSave, onClose }) {
             onFocus={e => e.target.style.borderColor="#E8FF47"} onBlur={e => e.target.style.borderColor="#2A2A2A"} />
         </div>
 
-        <div style={{ marginBottom:24 }}>
+        <div style={{ marginBottom: isNew ? 16 : 24 }}>
           <div className="field-label">YouTube Video Link</div>
           <input value={video} onChange={e => setVideo(e.target.value)} placeholder="https://youtube.com/watch?v=..."
             style={{ width:"100%", background:"#0D0D0D", border:"1px solid #2A2A2A", borderRadius:8, color:"#F5F0E8", padding:"9px 12px", fontFamily:"'DM Mono',monospace", fontSize:13, outline:"none" }}
             onFocus={e => e.target.style.borderColor="#E8FF47"} onBlur={e => e.target.style.borderColor="#2A2A2A"} />
         </div>
+
+        {isNew && (
+          <div style={{ marginBottom:24 }}>
+            <div className="field-label">Markdown Content</div>
+            <textarea value={markdownContent} onChange={e => setMarkdownContent(e.target.value)} placeholder="Paste your raw markdown here..."
+              style={{ width:"100%", background:"#0D0D0D", border:"1px solid #2A2A2A", borderRadius:8, color:"#F5F0E8", padding:"12px 14px", fontFamily:"'DM Mono',monospace", fontSize:12, lineHeight:1.6, resize:"vertical", minHeight:150, outline:"none" }}
+              onFocus={e => e.target.style.borderColor="#E8FF47"} onBlur={e => e.target.style.borderColor="#2A2A2A"} />
+          </div>
+        )}
 
         <div style={{ display:"flex", gap:10, justifyContent:"flex-end" }}>
           <button onClick={onClose} className="ghost-btn">Cancel</button>
