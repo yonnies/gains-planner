@@ -1,47 +1,48 @@
 import React from "react";
-import gymData from "../storage/gym_data.json";
 
-// Global fallbacks if API hasn't loaded yet
-const EXERCISE_LIBRARY = gymData.exerciseLibrary;
-const GROUP_LABELS = gymData.groupLabels;
-const DAY_TEMPLATES = gymData.dayTemplates;
-// flat sorted list of all unique exercises for the knowledge library picker
-const ALL_EXERCISES = [...new Set(Object.values(EXERCISE_LIBRARY).flat())].sort();
+// These will be populated after fetching /api/gymdata on mount.
+// We use module-level vars so helper functions outside the component can access them.
+let EXERCISE_LIBRARY = {};
+let GROUP_LABELS = {};
+let DAY_TEMPLATES = {};
 
-const STORAGE_KEY = "gym-split-v4";
 const DAY_ACCENTS = { lowerA:"#E8FF47", upperA:"#47FFD4", lowerB:"#E8FF47", upperB:"#47FFD4" };
 const DAY_INDEX   = { lowerA:1, upperA:2, lowerB:3, upperB:4 };
 
 const WISDOM_CATEGORIES = ["Technique","Programming","Recovery","Nutrition","Mindset","General"];
 
 // ─── State helpers ────────────────────────────────────────────────────────────
-function buildDefault() {
+function buildDefault(gymData) {
   const days = {};
-  for (const [key, tpl] of Object.entries(DAY_TEMPLATES)) {
+  for (const [key, tpl] of Object.entries(gymData.dayTemplates || {})) {
     days[key] = { title:tpl.title, subtitle:tpl.subtitle, allGroups:[...tpl.allGroups], activeGroups:[...tpl.activeGroups], selected:{...tpl.selected} };
   }
   return { 
     days, 
     history: [], 
-    exerciseNotes: { ...gymData.exerciseNotes }, 
+    exerciseNotes: { ...(gymData.exerciseNotes || {}) }, 
     wisdomEntries: [],
-    exerciseLibrary: { ...EXERCISE_LIBRARY }
+    exerciseLibrary: { ...(gymData.exerciseLibrary || {}) }
   };
 }
 
-function loadState() {
-  try { 
-    const r = localStorage.getItem(STORAGE_KEY); 
-    if (r) {
-      const parsed = JSON.parse(r);
-      // Ensure library is always up to date and merge new notes from JSON into local state
-      parsed.exerciseLibrary = { ...EXERCISE_LIBRARY };
-      parsed.exerciseNotes = { ...gymData.exerciseNotes, ...(parsed.exerciseNotes || {}) };
-      return parsed;
-    }
-  } catch {}
-  return buildDefault();
+// Debounce helper — auto-save waits 300ms after the last change before writing
+function debounce(fn, ms) {
+  let timer;
+  return (...args) => { clearTimeout(timer); timer = setTimeout(() => fn(...args), ms); };
 }
+
+const saveStateToServer = debounce(async (state) => {
+  try {
+    await fetch("/api/state", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(state),
+    });
+  } catch (err) {
+    console.error("Auto-save failed:", err);
+  }
+}, 300);
 
 function extractYouTubeId(url) {
   if (!url) return null;
@@ -274,14 +275,14 @@ function ExerciseModal({ name, data, onSave, onClose }) {
 // ─── Knowledge Library View ───────────────────────────────────────────────────
 function KnowledgeView({ exerciseLibrary, onUpdateLibrary, exerciseNotes, onUpdateExerciseNotes }) {
   const [search, setSearch] = React.useState("");
-  const [modal, setModal] = React.useState(null); // exercise name
+  const [modal, setModal] = React.useState(null);
   const [groupFilter, setGroupFilter] = React.useState("all");
   const [expanded, setExpanded] = React.useState({});
+  // Per-group inline add form state: { [group]: { name, link } }
+  const [addState, setAddState] = React.useState({});
 
-  // Add exercise state
-  const [addName, setAddName] = React.useState("");
-  const [addCat, setAddCat] = React.useState(Object.keys(GROUP_LABELS)[0]);
-  const [addLink, setAddLink] = React.useState("");
+  const getAdd = (group) => addState[group] || { name: "", link: "" };
+  const setAdd = (group, patch) => setAddState(prev => ({ ...prev, [group]: { ...getAdd(group), ...patch } }));
 
   const groupEntries = Object.entries(exerciseLibrary);
 
@@ -296,16 +297,16 @@ function KnowledgeView({ exerciseLibrary, onUpdateLibrary, exerciseNotes, onUpda
 
   const totalWithNotes = Object.keys(exerciseNotes).filter(k => exerciseNotes[k]?.notes || exerciseNotes[k]?.videos?.length).length;
 
-  const handleAddExercise = () => {
-    if (!addName.trim()) return;
-    const updated = { ...exerciseLibrary, [addCat]: [...(exerciseLibrary[addCat] || []), addName.trim()] };
+  const handleAddExercise = (group) => {
+    const { name, link } = getAdd(group);
+    if (!name.trim()) return;
+    const updated = { ...exerciseLibrary, [group]: [...(exerciseLibrary[group] || []), name.trim()] };
     onUpdateLibrary(updated);
-    if (addLink.trim()) {
-      onUpdateExerciseNotes(addName.trim(), { ...exerciseNotes[addName.trim()], videos: [addLink.trim()] });
+    if (link.trim()) {
+      onUpdateExerciseNotes(name.trim(), { ...exerciseNotes[name.trim()], videos: [link.trim()] });
     }
-    setAddName("");
-    setAddLink("");
-    setExpanded(prev => ({ ...prev, [addCat]: true }));
+    setAdd(group, { name: "", link: "" });
+    setExpanded(prev => ({ ...prev, [group]: true }));
   };
 
   const handleDeleteExercise = (group, ex) => {
@@ -372,18 +373,6 @@ function KnowledgeView({ exerciseLibrary, onUpdateLibrary, exerciseNotes, onUpda
         </select>
       </div>
 
-      {/* Add New Exercise Section */}
-      <div style={{ background: "#141414", border: "1px solid #242424", borderRadius: 12, padding: "20px", marginBottom: "28px" }}>
-        <div style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 800, fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", color: "#555", marginBottom: "14px" }}>Add to Library</div>
-        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-          <input value={addName} onChange={e => setAddName(e.target.value)} placeholder="Exercise Name" style={{ flex: 1, minWidth: 160, background: "#0D0D0D", border: "1px solid #2A2A2A", borderRadius: 8, color: "#F5F0E8", padding: "9px 12px", fontFamily: "'DM Mono',monospace", fontSize: 12, outline: "none" }} />
-          <input value={addLink} onChange={e => setAddLink(e.target.value)} placeholder="YouTube Link (Optional)" style={{ flex: 1, minWidth: 160, background: "#0D0D0D", border: "1px solid #2A2A2A", borderRadius: 8, color: "#F5F0E8", padding: "9px 12px", fontFamily: "'DM Mono',monospace", fontSize: 12, outline: "none" }} />
-          <select value={addCat} onChange={e => setAddCat(e.target.value)} className="ex-select" style={{ flex: "0 0 150px" }}>
-            {Object.entries(GROUP_LABELS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
-          </select>
-          <button onClick={handleAddExercise} className="accent-btn" style={{ padding: "9px 20px" }}>Add</button>
-        </div>
-      </div>
 
       {/* Groups */}
       <div style={{ display:"flex", flexDirection:"column", gap:16 }}>
@@ -435,6 +424,35 @@ function KnowledgeView({ exerciseLibrary, onUpdateLibrary, exerciseNotes, onUpda
                     </div>
                   );
                 })}
+
+                {/* ── Inline add row ── */}
+                <div style={{ display: "flex", gap: 8, padding: "10px 14px", borderTop: "1px solid #1E1E1E", background: "#0E0E0E", alignItems: "center", flexWrap: "wrap" }}>
+                  <input
+                    value={getAdd(group).name}
+                    onChange={e => setAdd(group, { name: e.target.value })}
+                    onKeyDown={e => { if (e.key === "Enter") handleAddExercise(group); }}
+                    placeholder="New exercise name..."
+                    style={{ flex: 2, minWidth: 140, background: "#141414", border: "1px solid #252525", borderRadius: 6, color: "#F5F0E8", padding: "7px 10px", fontFamily: "'DM Mono',monospace", fontSize: 11, outline: "none" }}
+                    onFocus={e => e.target.style.borderColor = "#E8FF47"}
+                    onBlur={e => e.target.style.borderColor = "#252525"}
+                  />
+                  <input
+                    value={getAdd(group).link}
+                    onChange={e => setAdd(group, { link: e.target.value })}
+                    onKeyDown={e => { if (e.key === "Enter") handleAddExercise(group); }}
+                    placeholder="YouTube link (optional)"
+                    style={{ flex: 3, minWidth: 160, background: "#141414", border: "1px solid #252525", borderRadius: 6, color: "#F5F0E8", padding: "7px 10px", fontFamily: "'DM Mono',monospace", fontSize: 11, outline: "none" }}
+                    onFocus={e => e.target.style.borderColor = "#E8FF47"}
+                    onBlur={e => e.target.style.borderColor = "#252525"}
+                  />
+                  <button
+                    onClick={() => handleAddExercise(group)}
+                    className="add-btn"
+                    style={{ padding: "6px 14px", fontSize: 11, whiteSpace: "nowrap" }}
+                  >
+                    + Add
+                  </button>
+                </div>
               </div>
             )}
           </div>
@@ -652,13 +670,60 @@ function WisdomView({ entries, onUpdate }) {
 
 // ─── App Root ─────────────────────────────────────────────────────────────────
 export default function GymSplitPlanner() {
-  const [state, setState] = React.useState(loadState);
-  const [view, setView]   = React.useState("plan"); // "plan" | "history" | "library" | "wisdom"
+  const [state, setState]       = React.useState(null); // null = loading
+  const [view, setView]         = React.useState("plan");
   const [savedFlash, setSavedFlash] = React.useState(false);
 
+  // ── On mount: load gym data + saved state from server ──────────────────────
   React.useEffect(() => {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+    async function init() {
+      try {
+        // 1. Always fetch the gym data (exercise library, group labels, day templates)
+        const gymRes  = await fetch("/api/gymdata");
+        const gymData = await gymRes.json();
+
+        // Populate module-level vars so helper components can use them
+        EXERCISE_LIBRARY = gymData.exerciseLibrary  || {};
+        GROUP_LABELS     = gymData.groupLabels       || {};
+        DAY_TEMPLATES    = gymData.dayTemplates      || {};
+
+        // 2. Try to load previously saved state
+        const stateRes = await fetch("/api/state");
+        const saved    = await stateRes.json();
+
+        if (saved && saved.days && Object.keys(saved.days).length > 0) {
+          // Always keep exercise library in sync with gym_data.json
+          saved.exerciseLibrary = { ...EXERCISE_LIBRARY, ...(saved.exerciseLibrary || {}) };
+          // Merge new notes from gym_data.json without overwriting user edits
+          saved.exerciseNotes = { ...(gymData.exerciseNotes || {}), ...(saved.exerciseNotes || {}) };
+          setState(saved);
+        } else {
+          // First run — build defaults from gym_data.json
+          setState(buildDefault(gymData));
+        }
+      } catch (err) {
+        console.error("Failed to load data from server:", err);
+        // Fallback: render with empty state so the app is usable
+        setState({ days:{}, history:[], exerciseNotes:{}, wisdomEntries:[], exerciseLibrary:{} });
+      }
+    }
+    init();
+  }, []);
+
+  // ── Auto-save: debounced write to disk on every state change ────────────────
+  React.useEffect(() => {
+    if (state === null) return; // don't save while still loading
+    saveStateToServer(state);
   }, [state]);
+
+  // Show a loading screen while fetching initial data
+  if (state === null) {
+    return (
+      <div style={{ minHeight:"100vh", background:"#0D0D0D", color:"#F5F0E8", display:"flex", alignItems:"center", justifyContent:"center", fontFamily:"'DM Mono',monospace", fontSize:13, color:"#444" }}>
+        Loading...
+      </div>
+    );
+  }
 
   const updateDay = (dayKey, patch) => setState(prev => ({ ...prev, days:{ ...prev.days, [dayKey]:{ ...prev.days[dayKey], ...patch } } }));
 
@@ -776,7 +841,7 @@ export default function GymSplitPlanner() {
             <div style={{ fontFamily:"'DM Mono',monospace", fontSize:11, color:"#3A3A3A", marginTop:5 }}>⠿ drag to reorder · ✕ to deactivate · expand inactive to add groups</div>
           </div>
           <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(290px,1fr))", gap:12 }}>
-            {Object.entries(state.days).map(([dayKey,day]) => (
+            {Object.entries(state.days || {}).map(([dayKey,day]) => (
               <DayCard key={dayKey} dayKey={dayKey} day={day} library={state.exerciseLibrary} onUpdate={updateDay} accent={DAY_ACCENTS[dayKey]} />
             ))}
           </div>

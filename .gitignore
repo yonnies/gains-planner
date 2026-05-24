@@ -43,3 +43,7 @@ coverage/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Personal workout data (stored locally, not committed to git)
+storage/app_state.json
+storage/*.tmp

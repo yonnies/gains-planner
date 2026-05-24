@@ -5,11 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "server": "node server.js",
+    "dev:full": "concurrently -n \"SERVER,VITE\" -c \"cyan,yellow\" \"node server.js\" \"vite\"",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "concurrently": "^9.2.1",
+    "express": "^5.1.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
   },
