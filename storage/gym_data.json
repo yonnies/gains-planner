@@ -79,74 +79,349 @@
       "Side-Lying Clamshell",
       "Dumbbell Hip Abduction"
     ],
-    "upperBack": ["Lat Pulldown", "Seated Cable Row", "Chest Supported Row", "Pull-Up", "Face Pull", "Pendlay Row", "T-Bar Row", "Single-Arm Dumbbell Row", "Meadows Row", "Cable Pullover", "Inverted Row"],
-    "lowerBack": ["Back Extension", "Good Morning", "Romanian Deadlift (RDL)", "Reverse Hyperextension", "Superman", "Bird Dog", "Deadlift", "45° Back Extension", "Banded Good Morning"],
-    "chest": ["Bench Press", "Incline Dumbbell Press", "Push-Up", "Cable Fly", "Chest Press Machine", "Decline Bench Press", "Pec Deck", "Dumbbell Pullover", "Low Cable Crossover", "Dips"],
-    "shoulders": ["Overhead Press", "Arnold Press", "Machine Shoulder Press", "Landmine Press", "Upright Row", "Push Press", "Seated Dumbbell Press", "Z-Press", "Cable Overhead Press"],
-    "delts": ["Lateral Raise", "Rear Delt Fly", "Cable Lateral Raise", "Face Pull", "Y Raise", "W Raise", "Prone Rear Delt Raise", "Cable Rear Delt Fly", "Band Pull-Apart", "Leaning Lateral Raise"],
-    "triceps": ["Tricep Pushdown", "Overhead Tricep Extension", "Skull Crusher", "Close-Grip Bench Press", "Diamond Push-Up", "Dip", "Cable Kickback", "JM Press", "Tate Press"],
-    "biceps": ["Barbell Curl", "Hammer Curl", "Incline Dumbbell Curl", "Cable Curl", "Preacher Curl", "Concentration Curl", "Spider Curl", "Zottman Curl", "Cross-Body Curl"]
+    "upperBack": [
+      "Lat Pulldown",
+      "Seated Cable Row",
+      "Chest Supported Row",
+      "Pull-Up",
+      "Face Pull",
+      "Pendlay Row",
+      "T-Bar Row",
+      "Single-Arm Dumbbell Row",
+      "Meadows Row",
+      "Cable Pullover",
+      "Inverted Row",
+      "Cable Flexion Row",
+      "Machine Row",
+      "Lat Prayers (Straight Arm Lat Pulldown)",
+      "Barbell Bent Over Row",
+      "Rope Arm Pulldown",
+      "Single Arm Bent Over Row",
+      "Reverse-Grip Barbell Bent-Over Row",
+      "Wide-Grip Lat Pulldown",
+      "Pull-up"
+    ],
+    "lowerBack": [
+      "Back Extension",
+      "Good Morning",
+      "Romanian Deadlift (RDL)",
+      "Reverse Hyperextension",
+      "Superman",
+      "Bird Dog",
+      "Deadlift",
+      "45° Back Extension",
+      "Banded Good Morning"
+    ],
+    "chest": [
+      "Bench Press",
+      "Incline Dumbbell Press",
+      "Push-Up",
+      "Cable Fly",
+      "Chest Press Machine",
+      "Decline Bench Press",
+      "Pec Deck",
+      "Dumbbell Pullover",
+      "Low Cable Crossover",
+      "Dips",
+      "Dumbbell Chest Press",
+      "Push-ups (Kneeling or Standard)"
+    ],
+    "shoulders": [
+      "Overhead Press",
+      "Arnold Press",
+      "Machine Shoulder Press",
+      "Landmine Press",
+      "Upright Row",
+      "Push Press",
+      "Seated Dumbbell Press",
+      "Z-Press",
+      "Cable Overhead Press",
+      "Seated Dumbbell Shoulder Press",
+      "Dumbbell Snatch",
+      "Barbell Push Press"
+    ],
+    "delts": [
+      "Lateral Raise",
+      "Rear Delt Fly",
+      "Cable Lateral Raise",
+      "Face Pull",
+      "Y Raise",
+      "W Raise",
+      "Prone Rear Delt Raise",
+      "Cable Rear Delt Fly",
+      "Band Pull-Apart",
+      "Leaning Lateral Raise",
+      "Reverse-Grip Front Cable Raise"
+    ],
+    "triceps": [
+      "Tricep Pushdown",
+      "Overhead Tricep Extension",
+      "Skull Crusher",
+      "Close-Grip Bench Press",
+      "Diamond Push-Up",
+      "Dip",
+      "Cable Kickback",
+      "JM Press",
+      "Tate Press",
+      "Diamond Push-up (Kneeling or Standard)"
+    ],
+    "biceps": [
+      "Barbell Curl",
+      "Hammer Curl",
+      "Incline Dumbbell Curl",
+      "Cable Curl",
+      "Preacher Curl",
+      "Concentration Curl",
+      "Spider Curl",
+      "Zottman Curl",
+      "Cross-Body Curl",
+      "Bicep Curl",
+      "Standing Dumbbell Bicep Curl + 6B: Overhead Dumbbell Tricep Extension"
+    ]
   },
   "exerciseNotes": {
     "Smith Machine Front-Foot-Elevated Lunge": {
-      "videos": ["http://www.youtube.com/watch?v=_gakDkB24WI&t=162s"],
+      "videos": [
+        "http://www.youtube.com/watch?v=_gakDkB24WI&t=162s"
+      ],
       "notes": "Stand with your front foot elevated on a platform and place your back foot strictly on its toe to act as a stabilizer. Keep almost 100% of your body weight loaded into the working front leg. Lower yourself down with an exceptionally slow, controlled eccentric phase, pause gently at the bottom to maximize the stretch on the glute, and then drive upward. Complete one leg entirely, rest 15–30 seconds, and then switch to the other leg to manage systemic fatigue."
     },
     "Sumo Deficit Deadlift": {
-      "videos": ["http://www.youtube.com/watch?v=_gakDkB24WI&t=348s", "http://www.youtube.com/watch?v=mzjX21QqazI&t=99s"],
+      "videos": [
+        "http://www.youtube.com/watch?v=_gakDkB24WI&t=348s",
+        "http://www.youtube.com/watch?v=mzjX21QqazI&t=99s"
+      ],
       "notes": "Stand on a platform or plates to create a deficit. Take a stance wider than shoulder-width with your toes flared outward further than normal (this naturally forces your knees to flare out and keeps your back flat). Keep your arms completely straight to act as hooks—do not pull with your biceps. Descend slowly to find an deep, intense stretch in the glutes, pause briefly at the bottom, and stand back up. Keep the eccentric phase controlled all the way through to the final rack.\n\nNote: Excellent for glutes and adductors, but the wide stance \"pre-contracts\" the glutes. This means you lose out on the maximum possible glute stretch at the bottom of the movement."
     },
     "Romanian Deadlift (RDL)": {
-      "videos": ["http://www.youtube.com/watch?v=_gakDkB24WI&t=535s", "http://www.youtube.com/watch?v=6vlP9xPJbaQ&t=120s"],
+      "videos": [
+        "http://www.youtube.com/watch?v=_gakDkB24WI&t=535s",
+        "http://www.youtube.com/watch?v=6vlP9xPJbaQ&t=120s"
+      ],
       "notes": "Initiate the movement by pushing your hips/butt straight back and keeping your knees set back to lock intense tension onto the hamstrings and glutes. Lower the bar slowly. To advance the tension, pause for 2 full seconds hovering just a centimeter above the floor without letting the weight touch or unload, then drive the hips forward to stand up.\n\nTechnique: Keep feet shoulder-width apart, slightly turned out, with knees soft. Tuck your chin and brace your core. Hinge at the hips, digging your heels back as if being pulled from behind. Keep the bar/dumbbells close to your shins and drive back up without over-extending."
     },
     "Heel-Elevated Squat Dropset (Quad Focus)": {
-      "videos": ["http://www.youtube.com/watch?v=_gakDkB24WI&t=738s"],
+      "videos": [
+        "http://www.youtube.com/watch?v=_gakDkB24WI&t=738s"
+      ],
       "notes": "Stand with your heels elevated on a plate and your toes pointed slightly out. Squat down deep, keeping your chest strictly upright and pushing your knees forward over your toes. Perform slow repetitions with a pause at the bottom until reaching failure with the barbell. Immediately strip the bar away and continue performing bodyweight repetitions down to absolute muscular failure."
     },
     "High Bar Sumo Squat": {
-      "videos": ["http://www.youtube.com/watch?v=AgogBuofpE8&t=139s"],
+      "videos": [
+        "http://www.youtube.com/watch?v=AgogBuofpE8&t=139s"
+      ],
       "notes": "Take a wide stance (wider than shoulder-width) and keep your chest upright. Focus on forcing your knees outward throughout the entire movement to keep the glutes constantly contracted. Push your hips/butt far back to sink ultra-deep into the stretch. Execute with a controlled negative, pause at the bottom, and drive back up."
     },
     "Deficit Rear-Foot-Elevated Lunge": {
-      "videos": ["http://www.youtube.com/watch?v=AgogBuofpE8&t=424s"],
+      "videos": [
+        "http://www.youtube.com/watch?v=AgogBuofpE8&t=424s"
+      ],
       "notes": "Performed on an elevated platform. Place the top of your back foot (shoelaces down) flat on the ground/pad. As you drive upward, focus completely on using your front leg and glute; the back leg is strictly a stabilizer. Lower down slowly until the back knee gently touches the ground for an extreme eccentric stretch. Take a 60-second rest between switching sides."
     },
     "Conventional Deficit Deadlift": {
-      "videos": ["http://www.youtube.com/watch?v=mzjX21QqazI&t=127s"],
+      "videos": [
+        "http://www.youtube.com/watch?v=mzjX21QqazI&t=127s"
+      ],
       "notes": "Hits the glutes well, but requires bending the knees heavily to reach deep enough. This heavy knee bend shifts a significant portion of the load away from the glutes and into the quads and adductors."
     },
     "Stiff-Legged Deficit Deadlift": {
-      "videos": ["http://www.youtube.com/watch?v=mzjX21QqazI&t=165s"],
+      "videos": [
+        "http://www.youtube.com/watch?v=mzjX21QqazI&t=165s"
+      ],
       "notes": "Great for getting a deep stretch under load, but keeping the knees locked back forces the hamstrings to become the limiting factor. Your hamstrings will take over and get very sore, while the glutes don't get fully stimulated."
     },
     "\"Dr. Mike\" Glute Deficit Deadlift": {
-      "videos": ["http://www.youtube.com/watch?v=mzjX21QqazI&t=223s"],
+      "videos": [
+        "http://www.youtube.com/watch?v=mzjX21QqazI&t=223s"
+      ],
       "notes": "The ultimate hybrid variation. Start it like a stiff-legged deadlift with relatively straight knees. As you lower and begin to feel the hamstring stretch, intentionally let your knees come forward just enough to release tension from the hamstrings. Drop all the way down to a deficit to touch the ground, pausing for a split second."
     },
     "Bulgarian Split Squat": {
-      "videos": ["http://www.youtube.com/watch?v=6vlP9xPJbaQ&t=420s"],
+      "videos": [
+        "http://www.youtube.com/watch?v=6vlP9xPJbaQ&t=420s"
+      ],
       "notes": "To find your stance, sit on the bench, extend your working leg straight out, and stand up. For glutes, lean your chest slightly forward; for quads, stay upright. Hold one dumbbell for better balance. Lower down for 2 seconds, then drive up through your front heel for 2 seconds without locking out the knee."
     },
     "Hip Thrust": {
-      "videos": ["http://www.youtube.com/watch?v=6vlP9xPJbaQ&t=543s"],
+      "videos": [
+        "http://www.youtube.com/watch?v=6vlP9xPJbaQ&t=543s"
+      ],
       "notes": "Place your shoulder blades on the bench and use a pad for protection. Keep your chin tucked and look forward at all times to protect your back. Drive through your hips and scoop your tailbone upward at the top. If the bench is too high, sit on a weight plate for extra leverage."
     },
     "Dumbbell Sumo Squat": {
-      "videos": ["http://www.youtube.com/watch?v=6vlP9xPJbaQ&t=747s"],
+      "videos": [
+        "http://www.youtube.com/watch?v=6vlP9xPJbaQ&t=747s"
+      ],
       "notes": "Take a wide stance, hold a heavy dumbbell vertically, and sit back into your heels with a slight forward chest lean. Lower slowly for 3 seconds. Squeeze your glutes the exact moment you begin to rise and stop just short of a full standing lockout."
     },
     "Single Leg Deadlift (B-Stance)": {
-      "videos": ["http://www.youtube.com/watch?v=6vlP9xPJbaQ&t=951s"],
+      "videos": [
+        "http://www.youtube.com/watch?v=6vlP9xPJbaQ&t=951s"
+      ],
       "notes": "Place one foot forward (working leg) and the back foot bent like a kickstand (non-working leg). Hold the dumbbell on the side of the working leg. Hinge at the hips to isolate the front hamstring. Drive the entire pulling movement using only your front hamstring and glute."
+    },
+    "Cable Flexion Row": {
+      "videos": [
+        "https://youtu.be/6eBwGki2JuU?t=308"
+      ],
+      "notes": "Excellent for building the spinal erectors and midback thickness while reducing the risk of lower back injuries. Reach as far forward as possible with slightly bent legs, allowing your back to round and protract. Then, as you pull back, extend your spine and reach your chest to the sky."
+    },
+    "Machine Row": {
+      "videos": [
+        "https://youtu.be/6eBwGki2JuU?t=591"
+      ],
+      "notes": "Start by letting the weight pull your shoulders forward to stretch the back. As you initiate the pull, bring your elbows and shoulders back while pushing your chest up against the pad. Pull athletically, pause for a second, and slowly control the weight back down into that deep stretch."
+    },
+    "Lat Prayers (Straight Arm Lat Pulldown)": {
+      "videos": [
+        "https://youtu.be/6eBwGki2JuU?t=864"
+      ],
+      "notes": "Hinge at the hips until your torso is nearly parallel to the ground. Let the cable pull your arms up for a massive lat stretch with almost fully locked-out elbows. As you pull the cable down in a smooth arc toward your legs, bring your chest up slightly (and tilt your head to avoid hitting your face)."
+    },
+    "Barbell Bent Over Row": {
+      "videos": [
+        "https://youtu.be/6eBwGki2JuU?t=1166"
+      ],
+      "notes": "To take advantage of the stretched position without failing early at the top, use a dynamic torso angle. Keep your lower back perfectly straight but start with your torso nearly parallel to the floor. As you pull the bar up, dynamically raise your torso to a 45-degree angle. Lower the weight under control back to the starting parallel position."
+    },
+    "Rope Arm Pulldown": {
+      "videos": [
+        "https://youtu.be/OoA7a2lRxz8?t=958"
+      ],
+      "notes": "Bend your knees, hinge your hips, and push your booty back. As you pull the rope down, bring your chest up to isolate the back muscles and get a deeper contraction."
+    },
+    "Single Arm Bent Over Row": {
+      "videos": [
+        "https://youtu.be/9rVxPC6IokA?t=351"
+      ],
+      "notes": ""
+    },
+    "Reverse-Grip Barbell Bent-Over Row": {
+      "videos": [
+        "http://www.youtube.com/watch?v=wWEKiu5ok6o&t=209s"
+      ],
+      "notes": "Adopt a hip-hinged RDL position with a slight bend in the knees to take all shear force off the lower back. Grip the bar underhand (reverse grip) and pull exclusively with your elbows toward your belly button. Allow your chest to naturally rise slightly as the barbell meets your torso; consciously retract your shoulder blades to prevent back rounding."
+    },
+    "Wide-Grip Lat Pulldown": {
+      "videos": [
+        "http://www.youtube.com/watch?v=wWEKiu5ok6o&t=508s"
+      ],
+      "notes": "Balance your hands evenly on the bar and lock your thighs completely beneath the pads. Utilize a thumbless grip (keep thumbs over the bar) to remove forearm/bicep takeover. Pull down with your elbows to your upper chest, slightly leaning back on the descent and moving forward on the ascent to achieve a full muscle stretch."
+    },
+    "Pull-up": {
+      "videos": [
+        "https://youtu.be/6eBwGki2JuU?t=64"
+      ],
+      "notes": "Every rep should end in a dead hang at the bottom to deeply stretch the lats under a heavy load, which promotes muscle growth and builds injury resilience. Pull to chin height every time for consistency. Explode up quickly, but control the eccentric (downward) phase for about 2-4 seconds."
+    },
+    "T-Bar Row": {
+      "videos": [
+        "https://youtu.be/OoA7a2lRxz8?t=304"
+      ],
+      "notes": "Pull with your elbows, keeping them nice and tucked, rather than yanking the weight up. Bring your chest up as the weight comes up to retract and get a significant contraction. Keeping your chest up and chin tucked at all times helps avoid strain in your lower back."
+    },
+    "Single-Arm Dumbbell Row": {
+      "videos": [
+        "http://www.youtube.com/watch?v=wWEKiu5ok6o&t=701s"
+      ],
+      "notes": "Step into a split, staggered stance. Support your non-working hand by pushing it flat against a solid structure (like a wall or machine tower)—pushing against an object creates a much more rigid and stable base than gripping or pulling onto it. Keep your legs completely stationary to eliminate momentum and row strictly with your elbow."
+    },
+    "Seated Dumbbell Shoulder Press": {
+      "videos": [
+        "https://youtu.be/9rVxPC6IokA?t=341"
+      ],
+      "notes": "Use your knees to help kick the weights up into position. Keep your chin tucked. For an insane contraction, tilt the dumbbells slightly and flare your elbows just a little bit."
+    },
+    "Dumbbell Snatch": {
+      "videos": [
+        "https://youtu.be/9rVxPC6IokA?t=590"
+      ],
+      "notes": "Great for speed, agility, and shoulders. Keep your core tight and contracted. Do not hyperextend or heavily arch your lower back when bringing the weight up, as this causes injury. 6-8 reps per arm."
+    },
+    "Barbell Push Press": {
+      "videos": [
+        "http://www.youtube.com/watch?v=wWEKiu5ok6o&t=138s"
+      ],
+      "notes": "Unlike a strict military press, utilize a slight dip in the knees to explosively power the bar overhead. Keep the core aggressively braced throughout the movement to secure the lower spine. Use the leg drive strategically to safely overload the vertical pressing pattern with heavier weight."
+    },
+    "Arnold Press": {
+      "videos": [
+        "https://youtu.be/OoA7a2lRxz8?t=377"
+      ],
+      "notes": "Unlike a standard military press, the Arnold press involves rotating the weight. Extend fully at the top and rotate the weights back toward you so they are by your eyesight at the bottom."
+    },
+    "Incline Dumbbell Press": {
+      "videos": [
+        "https://youtu.be/OoA7a2lRxz8?t=672"
+      ],
+      "notes": "Keep your shoulders retracted back to isolate the chest. This will naturally bring your chest up and create a slight arch in your back. Drive upwards and use the negative rep to deeply target the chest area. Your legs only serve to push the ground away for stability, not to lift the weight."
+    },
+    "Dumbbell Chest Press": {
+      "videos": [
+        "https://youtu.be/9rVxPC6IokA?t=222"
+      ],
+      "notes": "Push your feet firmly into the ground for stability instead of being on your tippy-toes. Retract your shoulders back and pull your shoulder blades together to naturally raise your chest. Keep your chin tucked and push the weight with intention, rather than just yanking it up."
+    },
+    "Push-ups (Kneeling or Standard)": {
+      "videos": [
+        "https://youtu.be/9rVxPC6IokA?t=651"
+      ],
+      "notes": "Drop straight down to the floor where you are to keep the intensity high."
+    },
+    "Bicep Curl": {
+      "videos": [
+        "https://youtu.be/9rVxPC6IokA?t=842"
+      ],
+      "notes": ""
+    },
+    "Standing Dumbbell Bicep Curl + 6B: Overhead Dumbbell Tricep Extension": {
+      "videos": [
+        "http://www.youtube.com/watch?v=wWEKiu5ok6o&t=712s"
+      ],
+      "notes": "Perform standard, high-volume sets back-to-back with minimal rest to maximize localized metabolic stress and flush the arms with blood to finish the training session."
+    },
+    "Diamond Push-up (Kneeling or Standard)": {
+      "videos": [
+        "https://youtu.be/9rVxPC6IokA?t=855"
+      ],
+      "notes": "Keep your elbows extremely close to your body. This predominantly targets the triceps."
+    },
+    "Reverse-Grip Front Cable Raise": {
+      "videos": [
+        "http://www.youtube.com/watch?v=wWEKiu5ok6o&t=600s"
+      ],
+      "notes": "Face away from the cable columns using an underhand attachment. Soften your knees and lean your torso slightly forward. Raise the cable straight out in front of your face and force a mandatory 2-second static hold at peak contraction on every rep to completely isolate the front delts."
+    },
+    "Rear Delt Fly": {
+      "videos": [
+        "https://youtu.be/9rVxPC6IokA?t=870"
+      ],
+      "notes": "Use a lighter weight (e.g., 3kg). Hinge over and perform the fly. You can also do this seated leaning over for more stability."
+    },
+    "Lateral Raise": {
+      "videos": [
+        "http://www.youtube.com/watch?v=wWEKiu5ok6o&t=739s"
+      ],
+      "notes": "Stand with knees soft and elbow joints lightly bent. Tilt your torso slightly forward to line up the lateral deltoid head with the plane of resistance. Raise the weights out to your sides smoothly, suppressing the urge to use a leg bounce or momentum to swing the dumbbells up."
     }
   },
   "dayTemplates": {
     "lowerA": {
       "title": "Lower A",
       "subtitle": "Posterior Chain Focus",
-      "allGroups": ["lungeVariations", "squatVariations", "deadliftVariations", "hipThrustVariations", "sideGlutes"],
-      "activeGroups": ["lungeVariations", "squatVariations", "deadliftVariations", "hipThrustVariations"],
+      "allGroups": [
+        "lungeVariations",
+        "squatVariations",
+        "deadliftVariations",
+        "hipThrustVariations",
+        "sideGlutes"
+      ],
+      "activeGroups": [
+        "lungeVariations",
+        "squatVariations",
+        "deadliftVariations",
+        "hipThrustVariations"
+      ],
       "selected": {
         "lungeVariations": "Bulgarian Split Squat",
         "squatVariations": "Barbell Back Squat",
@@ -158,15 +433,48 @@
     "upperA": {
       "title": "Upper A",
       "subtitle": "Pull Dominant",
-      "allGroups": ["upperBack", "lowerBack", "chest", "shoulders", "delts", "biceps", "triceps"],
-      "activeGroups": ["upperBack", "lowerBack", "chest", "shoulders", "delts"],
-      "selected": { "upperBack": "Lat Pulldown", "lowerBack": "Back Extension", "chest": "Bench Press", "shoulders": "Overhead Press", "delts": "Lateral Raise", "biceps": "Barbell Curl", "triceps": "Tricep Pushdown" }
+      "allGroups": [
+        "upperBack",
+        "lowerBack",
+        "chest",
+        "shoulders",
+        "delts",
+        "biceps",
+        "triceps"
+      ],
+      "activeGroups": [
+        "upperBack",
+        "lowerBack",
+        "chest",
+        "shoulders",
+        "delts"
+      ],
+      "selected": {
+        "upperBack": "Lat Pulldown",
+        "lowerBack": "Back Extension",
+        "chest": "Bench Press",
+        "shoulders": "Overhead Press",
+        "delts": "Lateral Raise",
+        "biceps": "Barbell Curl",
+        "triceps": "Tricep Pushdown"
+      }
     },
     "lowerB": {
       "title": "Lower B",
       "subtitle": "Quad Focus",
-      "allGroups": ["lungeVariations", "squatVariations", "deadliftVariations", "hipThrustVariations", "sideGlutes"],
-      "activeGroups": ["lungeVariations", "squatVariations", "deadliftVariations", "hipThrustVariations"],
+      "allGroups": [
+        "lungeVariations",
+        "squatVariations",
+        "deadliftVariations",
+        "hipThrustVariations",
+        "sideGlutes"
+      ],
+      "activeGroups": [
+        "lungeVariations",
+        "squatVariations",
+        "deadliftVariations",
+        "hipThrustVariations"
+      ],
       "selected": {
         "lungeVariations": "Smith Machine Front-Foot-Elevated Lunge",
         "squatVariations": "Hack Squat",
@@ -178,9 +486,31 @@
     "upperB": {
       "title": "Upper B",
       "subtitle": "Push Dominant",
-      "allGroups": ["upperBack", "lowerBack", "chest", "shoulders", "delts", "biceps", "triceps"],
-      "activeGroups": ["upperBack", "lowerBack", "chest", "shoulders", "delts"],
-      "selected": { "upperBack": "Seated Cable Row", "lowerBack": "Romanian Deadlift (RDL)", "chest": "Incline Dumbbell Press", "shoulders": "Arnold Press", "delts": "Rear Delt Fly", "biceps": "Hammer Curl", "triceps": "Skull Crusher" }
+      "allGroups": [
+        "upperBack",
+        "lowerBack",
+        "chest",
+        "shoulders",
+        "delts",
+        "biceps",
+        "triceps"
+      ],
+      "activeGroups": [
+        "upperBack",
+        "lowerBack",
+        "chest",
+        "shoulders",
+        "delts"
+      ],
+      "selected": {
+        "upperBack": "Seated Cable Row",
+        "lowerBack": "Romanian Deadlift (RDL)",
+        "chest": "Incline Dumbbell Press",
+        "shoulders": "Arnold Press",
+        "delts": "Rear Delt Fly",
+        "biceps": "Hammer Curl",
+        "triceps": "Skull Crusher"
+      }
     }
   }
 }
