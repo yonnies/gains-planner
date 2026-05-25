@@ -1,214 +1,211 @@
 {
-  "groupLabels": {
-    "lungeVariations": "Lunge Movement",
-    "squatVariations": "Squat Movement",
-    "deadliftVariations": "Deadlift Movement",
-    "hipThrustVariations": "Hip Thrust Movement",
-    "sideGlutes": "Side Glutes",
-    "verticalPull": "Vertical Pull",
-    "horizontalPull": "Horizontal Pull",
-    "lowerBack": "Lower Back",
-    "chest": "Chest",
-    "shoulders": "Shoulders",
-    "delts": "Delts",
-    "triceps": "Triceps",
-    "biceps": "Biceps"
+  "wisdomEntries": [
+    {
+      "title": "Upper Body Workout Blueprint",
+      "filename": "upper_body_blueprint.md",
+      "video": "http://www.youtube.com/watch?v=wWEKiu5ok6o&t=138s",
+      "category": "Programming"
+    },
+    {
+      "title": "Insane Upper Body Workout",
+      "video": "https://www.youtube.com/watch?v=OoA7a2lRxz8",
+      "filename": "insane_upper_body_workout.md",
+      "updatedAt": "2026-05-24T19:50:57.497Z"
+    },
+    {
+      "title": "The Perfect Upper Body Workout",
+      "video": "https://www.youtube.com/watch?v=9rVxPC6IokA",
+      "filename": "the_perfect_upper_body_workout.md",
+      "updatedAt": "2026-05-24T20:00:54.432Z"
+    },
+    {
+      "title": "Exercise Scientist's Top 5 Back Exercises",
+      "video": "https://www.youtube.com/watch?v=6eBwGki2JuU",
+      "filename": "exercise_scientist_s_top_5_back_exercises.md",
+      "updatedAt": "2026-05-24T20:01:38.798Z"
+    },
+    {
+      "title": "The Ultimate Side Delt Growth Program",
+      "video": "https://www.youtube.com/watch?v=0nUuD9eH39M",
+      "filename": "the_ultimate_side_delt_growth_program.md",
+      "updatedAt": "2026-05-24T20:05:08.807Z"
+    }
+  ],
+  "days": {
+    "lowerA": {
+      "title": "Lower A",
+      "subtitle": "Posterior Chain Focus",
+      "allGroups": [
+        "lungeVariations",
+        "squatVariations",
+        "deadliftVariations",
+        "hipThrustVariations",
+        "sideGlutes"
+      ],
+      "activeGroups": [
+        "squatVariations",
+        "deadliftVariations",
+        "squatVariations",
+        "hipThrustVariations",
+        "sideGlutes"
+      ],
+      "selected": {
+        "0": "Barbell Back Squat",
+        "1": "Single Leg Deadlift (B-Stance)",
+        "2": "Pistol Squat",
+        "3": "Hamstring Curls",
+        "4": "Cable Hip Abduction"
+      }
+    },
+    "upperA": {
+      "title": "Upper A",
+      "subtitle": "Pull Dominant",
+      "allGroups": [
+        "verticalPull",
+        "horizontalPull",
+        "lowerBack",
+        "chest",
+        "shoulders",
+        "delts",
+        "biceps",
+        "triceps"
+      ],
+      "activeGroups": [
+        "horizontalPull",
+        "verticalPull",
+        "chest",
+        "delts",
+        "shoulders"
+      ],
+      "selected": {
+        "0": "Barbell Bent Over Row",
+        "1": "Normal Grip Pulldown",
+        "2": "Bench Press",
+        "3": "Lateral Raise",
+        "4": "Overhead Press"
+      }
+    },
+    "lowerB": {
+      "title": "Lower B",
+      "subtitle": "Quad Focus",
+      "allGroups": [
+        "lungeVariations",
+        "squatVariations",
+        "deadliftVariations",
+        "hipThrustVariations",
+        "sideGlutes"
+      ],
+      "activeGroups": [
+        "lungeVariations",
+        "deadliftVariations",
+        "squatVariations",
+        "hipThrustVariations",
+        "sideGlutes"
+      ],
+      "selected": {
+        "0": "Smith Machine Front-Foot-Elevated Lunge",
+        "1": "Smith Machine Deadlift",
+        "2": "Leg Press",
+        "3": "Hip Thrust",
+        "4": "Dumbbell Hip Abduction"
+      }
+    },
+    "upperB": {
+      "title": "Upper B",
+      "subtitle": "Push Dominant",
+      "allGroups": [
+        "verticalPull",
+        "horizontalPull",
+        "lowerBack",
+        "chest",
+        "shoulders",
+        "delts",
+        "biceps",
+        "triceps"
+      ],
+      "activeGroups": [
+        "horizontalPull",
+        "verticalPull",
+        "chest",
+        "delts"
+      ],
+      "selected": {
+        "0": "Single Arm Cable Row",
+        "1": "Assisted Normal Grip Pullup",
+        "2": "Push-Up",
+        "3": "Cable Rear Delt Fly"
+      }
+    }
   },
-  "exerciseLibrary": {
-    "lungeVariations": [
-      "Bulgarian Split Squat",
-      "Walking Lunges",
-      "Smith Machine Lunges With Leg Lift",
-      "Front Foot Elevated Lunges",
-      "Smith Machine Front-Foot-Elevated Lunge",
-      "Deficit Rear-Foot-Elevated Lunge",
-      "Reverse Lunges",
-      "Curtsy Lunge",
-      "Step-Up",
-      "Step-Downs",
-      "TRX Side Lunge",
-      "Lateral Lunges",
-      "Single-Leg Press"
-    ],
-    "squatVariations": [
-      "Barbell Back Squat",
-      "Barbell Front Squat",
-      "Hack Squat",
-      "Goblet Squat",
-      "Leg Press",
-      "High Bar Sumo Squat",
-      "Dumbbell Sumo Squat",
-      "Sissy Squat",
-      "Cyclist Squat",
-      "Heel-Elevated Squat Dropset (Quad Focus)",
-      "Spanish Squat",
-      "Wall Sit",
-      "Terminal Knee Extension",
-      "Pistol Squat (Assisted)"
-    ],
-    "deadliftVariations": [
-      "Conventional Deadlift",
-      "Sumo Deadlift",
-      "Trap Bar Deadlift",
-      "Romanian Deadlift (RDL)",
-      "Sumo Deficit Deadlift",
-      "Conventional Deficit Deadlift",
-      "Stiff-Leg Deadlift",
-      "Stiff-Legged Deficit Deadlift",
-      "\"Dr. Mike\" Glute Deficit Deadlift",
-      "Single-Leg RDL",
-      "Single-Leg Deadlift",
-      "Single Leg Deadlift (B-Stance)",
-      "Good Morning"
-    ],
-    "hipThrustVariations": [
-      "Hip Thrust",
-      "Barbell Hip Thrust",
-      "Single-Leg Hip Thrust",
-      "Glute Bridge",
-      "Banded Frog Pump",
-      "45° Back Extension (Glute Focus)",
-      "Cable Kickback",
-      "Donkey Kick"
-    ],
-    "sideGlutes": [
-      "Hip Abduction Machine",
-      "Banded Side Walk",
-      "Lateral Band Walk",
-      "Cable Hip Abduction",
-      "Standing Cable Abduction",
-      "Side-Lying Clamshell",
-      "Dumbbell Hip Abduction"
-    ],
-    "verticalPull": [
-      "Lat Pulldown",
-      "Pull-Up",
-      "Cable Pullover",
-      "Lat Prayers (Straight Arm Lat Pulldown)",
-      "Rope Arm Pulldown",
-      "Wide-Grip Lat Pulldown",
-      "Pull-up",
-      "Normal Grip Pullup",
-      "Wide Grip Pullup",
-      "Parallel Grip Pullup",
-      "Underhand Pullup",
-      "Assisted Normal Grip Pullup",
-      "Assisted Wide Grip Pullup",
-      "Assisted Parallel Pullup",
-      "Assisted Underhand Pullup",
-      "Normal Grip Pulldown",
-      "Wide Grip Pulldown",
-      "Parallel Pulldown",
-      "Underhand Pulldown",
-      "Narrow Grip Pulldown",
-      "Hammer High Row",
-      "Machine Pullover",
-      "Straight Arm Pulldown"
-    ],
-    "horizontalPull": [
-      "Seated Cable Row",
-      "Chest Supported Row",
-      "Face Pull",
-      "Pendlay Row",
-      "T-Bar Row",
-      "Single-Arm Dumbbell Row",
-      "Meadows Row",
-      "Inverted Row",
-      "Cable Flexion Row",
-      "Machine Row",
-      "Barbell Bent Over Row",
-      "Single Arm Bent Over Row",
-      "Reverse-Grip Barbell Bent-Over Row",
-      "Cambered Bar Row",
-      "Barbell Row to Chest",
-      "Underhand EZ Bar Row",
-      "Smith Machine Row",
-      "Machine Chest Supported Row",
-      "T Bar Row",
-      "Incline Dumbbell Row",
-      "Two Arm Dumbbell Row",
-      "Single Arm Dumbbell Row",
-      "Hammer Low Row",
-      "Seal Row"
-    ],
-    "lowerBack": [
-      "Back Extension",
-      "Good Morning",
-      "Romanian Deadlift (RDL)",
-      "Reverse Hyperextension",
-      "Superman",
-      "Bird Dog",
-      "Deadlift",
-      "45° Back Extension",
-      "Banded Good Morning"
-    ],
-    "chest": [
-      "Bench Press",
-      "Incline Dumbbell Press",
-      "Push-Up",
-      "Cable Fly",
-      "Chest Press Machine",
-      "Decline Bench Press",
-      "Pec Deck",
-      "Dumbbell Pullover",
-      "Low Cable Crossover",
-      "Dips",
-      "Dumbbell Chest Press",
-      "Push-ups (Kneeling or Standard)"
-    ],
-    "shoulders": [
-      "Overhead Press",
-      "Arnold Press",
-      "Machine Shoulder Press",
-      "Landmine Press",
-      "Upright Row",
-      "Push Press",
-      "Seated Dumbbell Press",
-      "Z-Press",
-      "Cable Overhead Press",
-      "Seated Dumbbell Shoulder Press",
-      "Dumbbell Snatch",
-      "Barbell Push Press"
-    ],
-    "delts": [
-      "Lateral Raise",
-      "Rear Delt Fly",
-      "Cable Lateral Raise",
-      "Face Pull",
-      "Y Raise",
-      "W Raise",
-      "Prone Rear Delt Raise",
-      "Cable Rear Delt Fly",
-      "Band Pull-Apart",
-      "Leaning Lateral Raise",
-      "Reverse-Grip Front Cable Raise"
-    ],
-    "triceps": [
-      "Tricep Pushdown",
-      "Overhead Tricep Extension",
-      "Skull Crusher",
-      "Close-Grip Bench Press",
-      "Diamond Push-Up",
-      "Dip",
-      "Cable Kickback",
-      "JM Press",
-      "Tate Press",
-      "Diamond Push-up (Kneeling or Standard)"
-    ],
-    "biceps": [
-      "Barbell Curl",
-      "Hammer Curl",
-      "Incline Dumbbell Curl",
-      "Cable Curl",
-      "Preacher Curl",
-      "Concentration Curl",
-      "Spider Curl",
-      "Zottman Curl",
-      "Cross-Body Curl",
-      "Bicep Curl",
-      "Standing Dumbbell Bicep Curl + 6B: Overhead Dumbbell Tricep Extension"
-    ]
-  },
+  "history": [
+    {
+      "savedAt": "2026-05-25T07:52:14.807Z",
+      "days": {
+        "lowerA": {
+          "title": "Lower A",
+          "activeGroups": [
+            "lungeVariations",
+            "deadliftVariations",
+            "squatVariations",
+            "sideGlutes"
+          ],
+          "selected": {
+            "0": "Smith Machine Lunges With Leg Lift",
+            "1": "Single-Leg Deadlift",
+            "2": "Sumo Squat",
+            "3": "Hip Abduction Machine"
+          }
+        },
+        "upperA": {
+          "title": "Upper A",
+          "activeGroups": [
+            "horizontalPull",
+            "verticalPull",
+            "chest",
+            "delts",
+            "shoulders"
+          ],
+          "selected": {
+            "0": "Single Arm Bent Over Row",
+            "1": "Normal Grip Pulldown",
+            "2": "Bench Press",
+            "3": "Lateral Raise",
+            "4": "Overhead Press"
+          }
+        },
+        "lowerB": {
+          "title": "Lower B",
+          "activeGroups": [
+            "lungeVariations",
+            "deadliftVariations",
+            "squatVariations",
+            "sideGlutes"
+          ],
+          "selected": {
+            "0": "Bulgarian Split Squat",
+            "1": "Single-Leg Deadlift",
+            "2": "Hack Squat",
+            "3": "Hip Abduction Machine"
+          }
+        },
+        "upperB": {
+          "title": "Upper B",
+          "activeGroups": [
+            "horizontalPull",
+            "verticalPull",
+            "chest",
+            "delts"
+          ],
+          "selected": {
+            "0": "Single Arm Cable Row",
+            "1": "Assisted Normal Grip Pullup",
+            "2": "Push-Up",
+            "3": "Cable Rear Delt Fly"
+          }
+        }
+      }
+    }
+  ],
   "exerciseNotes": {
     "Smith Machine Front-Foot-Elevated Lunge": {
       "videos": [
@@ -285,10 +282,10 @@
       "notes": "Take a wide stance, hold a heavy dumbbell vertically, and sit back into your heels with a slight forward chest lean. Lower slowly for 3 seconds. Squeeze your glutes the exact moment you begin to rise and stop just short of a full standing lockout."
     },
     "Single Leg Deadlift (B-Stance)": {
+      "notes": "Place one foot forward (working leg) and the back foot bent like a kickstand (non-working leg). Hold the dumbbell on the side of the working leg. Hinge at the hips to isolate the front hamstring. Drive the entire pulling movement using only your front hamstring and glute.",
       "videos": [
-        "http://www.youtube.com/watch?v=6vlP9xPJbaQ&t=951s"
-      ],
-      "notes": "Place one foot forward (working leg) and the back foot bent like a kickstand (non-working leg). Hold the dumbbell on the side of the working leg. Hinge at the hips to isolate the front hamstring. Drive the entire pulling movement using only your front hamstring and glute."
+        "https://youtu.be/6vlP9xPJbaQ?si=02XViwlhwfnUZap-&t=1008"
+      ]
     },
     "Cable Flexion Row": {
       "videos": [
@@ -310,8 +307,7 @@
     },
     "Barbell Bent Over Row": {
       "videos": [
-        "https://youtu.be/6eBwGki2JuU?t=1166",
-        "https://youtu.be/6FZHJGzMFEc"
+        "https://youtu.be/6eBwGki2JuU?t=1166"
       ],
       "notes": "To take advantage of the stretched position without failing early at the top, use a dynamic torso angle. Keep your lower back perfectly straight but start with your torso nearly parallel to the floor. As you pull the bar up, dynamically raise your torso to a 45-degree angle. Lower the weight under control back to the starting parallel position."
     },
@@ -620,7 +616,213 @@
         "https://youtu.be/G9uNaXGTJ4w"
       ],
       "notes": ""
+    },
+    "Reverse Hyperextension": {
+      "notes": "",
+      "videos": []
+    },
+    "Lateral Band Walk": {
+      "notes": "",
+      "videos": []
     }
+  },
+  "exerciseLibrary": {
+    "lungeVariations": [
+      "Bulgarian Split Squat",
+      "Walking Lunges",
+      "Smith Machine Lunges With Leg Lift",
+      "Front Foot Elevated Lunges",
+      "Smith Machine Front-Foot-Elevated Lunge",
+      "Deficit Rear-Foot-Elevated Lunge",
+      "Reverse Lunges",
+      "Curtsy Lunge",
+      "Lateral Lunges"
+    ],
+    "squatVariations": [
+      "Barbell Back Squat",
+      "Barbell Front Squat",
+      "Hack Squat",
+      "Goblet Squat",
+      "Leg Press",
+      "High Bar Sumo Squat",
+      "Dumbbell Sumo Squat",
+      "Heel-Elevated Squat Dropset (Quad Focus)",
+      "Spanish Squat",
+      "Wall Sit",
+      "Step-up",
+      "Single Leg Press",
+      "Pistol Squat",
+      "Smith Machine Single Leg Squat",
+      "Sissy Squat",
+      "Cyclist Squat",
+      "Terminal Knee Extension",
+      "Sumo Squat"
+    ],
+    "deadliftVariations": [
+      "Conventional Deadlift",
+      "Sumo Deadlift",
+      "Romanian Deadlift (RDL)",
+      "Sumo Deficit Deadlift",
+      "Conventional Deficit Deadlift",
+      "Stiff-Legged Deficit Deadlift",
+      "\"Dr. Mike\" Glute Deficit Deadlift",
+      "Single-Leg Deadlift",
+      "Single Leg Deadlift (B-Stance)",
+      "Smith Machine Deadlift"
+    ],
+    "hipThrustVariations": [
+      "Hip Thrust",
+      "Single-Leg Hip Thrust",
+      "Glute Bridge",
+      "45° Back Extension (Glute Focus)",
+      "Cable Kickback",
+      "Donkey Kick",
+      "Barbell Hip Thrust",
+      "Banded Frog Pump",
+      "Hamstring Curls"
+    ],
+    "sideGlutes": [
+      "Hip Abduction Machine",
+      "Cable Hip Abduction",
+      "Dumbbell Hip Abduction"
+    ],
+    "verticalPull": [
+      "Lat Prayers (Straight Arm Lat Pulldown)",
+      "Rope Arm Pulldown",
+      "Wide-Grip Lat Pulldown",
+      "Pull-up",
+      "Normal Grip Pullup",
+      "Wide Grip Pullup",
+      "Parallel Grip Pullup",
+      "Underhand Pullup",
+      "Assisted Normal Grip Pullup",
+      "Assisted Wide Grip Pullup",
+      "Assisted Parallel Pullup",
+      "Assisted Underhand Pullup",
+      "Normal Grip Pulldown",
+      "Wide Grip Pulldown",
+      "Parallel Pulldown",
+      "Underhand Pulldown",
+      "Narrow Grip Pulldown",
+      "Hammer High Row",
+      "Machine Pullover",
+      "Straight Arm Pulldown"
+    ],
+    "horizontalPull": [
+      "Seated Cable Row",
+      "Chest Supported Row",
+      "T-Bar Row",
+      "Single-Arm Dumbbell Row",
+      "Single Arm Cable Row",
+      "Cable Flexion Row",
+      "Machine Row",
+      "Barbell Bent Over Row",
+      "Single Arm Bent Over Row",
+      "Reverse-Grip Barbell Bent-Over Row",
+      "Cambered Bar Row",
+      "Barbell Row to Chest",
+      "Underhand EZ Bar Row",
+      "Smith Machine Row",
+      "Machine Chest Supported Row",
+      "T Bar Row",
+      "Incline Dumbbell Row",
+      "Two Arm Dumbbell Row",
+      "Single Arm Dumbbell Row",
+      "Hammer Low Row",
+      "Seal Row"
+    ],
+    "lowerBack": [
+      "Back Extension",
+      "Superman",
+      "Good Morning",
+      "Romanian Deadlift (RDL)",
+      "Reverse Hyperextension",
+      "Bird Dog",
+      "Deadlift",
+      "45° Back Extension",
+      "Banded Good Morning"
+    ],
+    "chest": [
+      "Bench Press",
+      "Incline Dumbbell Press",
+      "Push-Up",
+      "Cable Fly",
+      "Chest Press Machine",
+      "Decline Bench Press",
+      "Pec Deck",
+      "Dumbbell Pullover",
+      "Low Cable Crossover",
+      "Dips",
+      "Dumbbell Chest Press",
+      "Push-ups (Kneeling or Standard)"
+    ],
+    "shoulders": [
+      "Overhead Press",
+      "Arnold Press",
+      "Machine Shoulder Press",
+      "Landmine Press",
+      "Upright Row",
+      "Push Press",
+      "Seated Dumbbell Press",
+      "Z-Press",
+      "Cable Overhead Press",
+      "Seated Dumbbell Shoulder Press",
+      "Dumbbell Snatch",
+      "Barbell Push Press"
+    ],
+    "delts": [
+      "Lateral Raise",
+      "Rear Delt Fly",
+      "Cable Lateral Raise",
+      "Face Pull",
+      "Y Raise",
+      "W Raise",
+      "Prone Rear Delt Raise",
+      "Cable Rear Delt Fly",
+      "Band Pull-Apart",
+      "Leaning Lateral Raise",
+      "Reverse-Grip Front Cable Raise"
+    ],
+    "triceps": [
+      "Tricep Pushdown",
+      "Overhead Tricep Extension",
+      "Skull Crusher",
+      "Close-Grip Bench Press",
+      "Diamond Push-Up",
+      "Dip",
+      "Cable Kickback",
+      "JM Press",
+      "Tate Press",
+      "Diamond Push-up (Kneeling or Standard)"
+    ],
+    "biceps": [
+      "Barbell Curl",
+      "Hammer Curl",
+      "Incline Dumbbell Curl",
+      "Cable Curl",
+      "Preacher Curl",
+      "Concentration Curl",
+      "Spider Curl",
+      "Zottman Curl",
+      "Cross-Body Curl",
+      "Bicep Curl",
+      "Standing Dumbbell Bicep Curl + 6B: Overhead Dumbbell Tricep Extension"
+    ]
+  },
+  "groupLabels": {
+    "lungeVariations": "Lunge Movement",
+    "squatVariations": "Squat Movement",
+    "deadliftVariations": "Deadlift Movement",
+    "hipThrustVariations": "Hip Thrust Movement",
+    "sideGlutes": "Side Glutes",
+    "verticalPull": "Vertical Pull",
+    "horizontalPull": "Horizontal Pull",
+    "lowerBack": "Lower Back",
+    "chest": "Chest",
+    "shoulders": "Shoulders",
+    "delts": "Delts",
+    "triceps": "Triceps",
+    "biceps": "Biceps"
   },
   "dayTemplates": {
     "lowerA": {

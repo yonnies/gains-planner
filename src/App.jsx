@@ -13,22 +13,22 @@ const DAY_INDEX   = { lowerA:1, upperA:2, lowerB:3, upperB:4 };
 const WISDOM_CATEGORIES = ["Technique","Programming","Recovery","Nutrition","Mindset","General"];
 
 // ─── State helpers ────────────────────────────────────────────────────────────
-function buildDefault(gymData) {
+function buildDefault(data) {
   const days = {};
-  for (const [key, tpl] of Object.entries(gymData.dayTemplates || {})) {
+  for (const [key, tpl] of Object.entries(data.dayTemplates || {})) {
     // Build index-keyed selected so groups can repeat
     const selected = {};
     (tpl.activeGroups || []).forEach((group, i) => {
-      selected[String(i)] = tpl.selected?.[group] || tpl.selected?.[String(i)] || (gymData.exerciseLibrary?.[group]?.[0] ?? "");
+      selected[String(i)] = tpl.selected?.[group] || tpl.selected?.[String(i)] || (data.exerciseLibrary?.[group]?.[0] ?? "");
     });
     days[key] = { title:tpl.title, subtitle:tpl.subtitle, allGroups:[...tpl.allGroups], activeGroups:[...tpl.activeGroups], selected };
   }
   return { 
     days, 
     history: [], 
-    exerciseNotes: { ...(gymData.exerciseNotes || {}) }, 
+    exerciseNotes: { ...(data.exerciseNotes || {}) }, 
     wisdomEntries: [],
-    exerciseLibrary: { ...(gymData.exerciseLibrary || {}) }
+    exerciseLibrary: { ...(data.exerciseLibrary || {}) }
   };
 }
 
@@ -160,7 +160,7 @@ function DayCard({ dayKey, day, library, onUpdate, accent }) {
 }
 
 // ─── History View ─────────────────────────────────────────────────────────────
-function HistoryView({ history, onBack, onRestore }) {
+function HistoryView({ history, onBack, onRestore, onDelete }) {
   return (
     <div style={{ padding:"28px" }}>
       <div style={{ display:"flex", alignItems:"center", gap:16, marginBottom:28, flexWrap:"wrap" }}>
@@ -183,7 +183,10 @@ function HistoryView({ history, onBack, onRestore }) {
                     <div style={{ fontFamily:"'Barlow Condensed',sans-serif", fontWeight:900, fontSize:15, textTransform:"uppercase", letterSpacing:"0.06em", color:"#E8FF47" }}>Session #{i+1}</div>
                     <div style={{ fontFamily:"'DM Mono',monospace", fontSize:11, color:"#555", marginTop:2 }}>{new Date(session.savedAt).toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"})}</div>
                   </div>
-                  <button onClick={() => onRestore(i)} className="restore-btn">Restore Plan</button>
+                  <div style={{ display:"flex", gap:8 }}>
+                    <button onClick={() => onRestore(i)} className="restore-btn">Restore Plan</button>
+                    <button onClick={() => onDelete(i)} className="ghost-btn" style={{ color: "#FF5555", borderColor: "#FF5555" }}>Delete</button>
+                  </div>
                 </div>
                 <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(200px,1fr))", gap:8 }}>
                   {Object.entries(session.days).map(([dayKey, day]) => (
@@ -742,28 +745,19 @@ export default function GymSplitPlanner() {
   const [view, setView]         = React.useState("plan");
   const [savedFlash, setSavedFlash] = React.useState(false);
 
-  // ── On mount: load gym data + saved state from server ──────────────────────
+  // ── On mount: load saved state from server ───────────────────────────────────
   React.useEffect(() => {
     async function init() {
       try {
-        // 1. Always fetch the gym data (exercise library, group labels, day templates)
-        const gymRes  = await fetch("/api/gymdata");
-        const gymData = await gymRes.json();
-
-        // Populate module-level vars so helper components can use them
-        EXERCISE_LIBRARY = gymData.exerciseLibrary  || {};
-        GROUP_LABELS     = gymData.groupLabels       || {};
-        DAY_TEMPLATES    = gymData.dayTemplates      || {};
-
-        // 2. Try to load previously saved state
         const stateRes = await fetch("/api/state");
         const saved    = await stateRes.json();
 
-        if (saved && saved.days && Object.keys(saved.days).length > 0) {
-          // Always keep exercise library in sync with gym_data.json
-          saved.exerciseLibrary = { ...EXERCISE_LIBRARY, ...(saved.exerciseLibrary || {}) };
-          // Merge new notes from gym_data.json without overwriting user edits
-          saved.exerciseNotes = { ...(gymData.exerciseNotes || {}), ...(saved.exerciseNotes || {}) };
+        if (saved) {
+          // Populate module-level vars so helper components can use them
+          EXERCISE_LIBRARY = saved.exerciseLibrary || {};
+          GROUP_LABELS     = saved.groupLabels || {};
+          DAY_TEMPLATES    = saved.dayTemplates || {};
+
           // Migrate selected from old group-name keys → index keys
           for (const key of Object.keys(saved.days || {})) {
             const day = saved.days[key];
@@ -775,14 +769,18 @@ export default function GymSplitPlanner() {
               saved.days[key] = { ...day, selected: newSelected };
             }
           }
-          setState(saved);
+          
+          if (!saved.days || Object.keys(saved.days).length === 0) {
+            setState(buildDefault(saved));
+          } else {
+            setState(saved);
+          }
         } else {
-          // First run — build defaults from gym_data.json
-          setState(buildDefault(gymData));
+          // Fallback if data.json is completely empty
+          setState({ days:{}, history:[], exerciseNotes:{}, wisdomEntries:[], exerciseLibrary:{} });
         }
       } catch (err) {
         console.error("Failed to load data from server:", err);
-        // Fallback: render with empty state so the app is usable
         setState({ days:{}, history:[], exerciseNotes:{}, wisdomEntries:[], exerciseLibrary:{} });
       }
     }
@@ -823,6 +821,14 @@ export default function GymSplitPlanner() {
     }
     setState(prev => ({ ...prev, days:newDays }));
     setView("plan");
+  };
+
+  const deleteFromHistory = (index) => {
+    setState(prev => {
+      const newHistory = [...prev.history];
+      newHistory.splice(index, 1);
+      return { ...prev, history: newHistory };
+    });
   };
 
   const updateExerciseNotes = (name, data) => {
@@ -936,7 +942,7 @@ export default function GymSplitPlanner() {
       )}
 
       {view==="history" && (
-        <HistoryView history={state.history||[]} onBack={() => setView("plan")} onRestore={restoreFromHistory} />
+        <HistoryView history={state.history||[]} onBack={() => setView("plan")} onRestore={restoreFromHistory} onDelete={deleteFromHistory} />
       )}
     </div>
   );
