@@ -5,7 +5,8 @@
     "deadliftVariations": "Deadlift Movement",
     "hipThrustVariations": "Hip Thrust Movement",
     "sideGlutes": "Side Glutes",
-    "upperBack": "Upper Back",
+    "verticalPull": "Vertical Pull",
+    "horizontalPull": "Horizontal Pull",
     "lowerBack": "Lower Back",
     "chest": "Chest",
     "shoulders": "Shoulders",
@@ -79,27 +80,56 @@
       "Side-Lying Clamshell",
       "Dumbbell Hip Abduction"
     ],
-    "upperBack": [
+    "verticalPull": [
       "Lat Pulldown",
+      "Pull-Up",
+      "Cable Pullover",
+      "Lat Prayers (Straight Arm Lat Pulldown)",
+      "Rope Arm Pulldown",
+      "Wide-Grip Lat Pulldown",
+      "Pull-up",
+      "Normal Grip Pullup",
+      "Wide Grip Pullup",
+      "Parallel Grip Pullup",
+      "Underhand Pullup",
+      "Assisted Normal Grip Pullup",
+      "Assisted Wide Grip Pullup",
+      "Assisted Parallel Pullup",
+      "Assisted Underhand Pullup",
+      "Normal Grip Pulldown",
+      "Wide Grip Pulldown",
+      "Parallel Pulldown",
+      "Underhand Pulldown",
+      "Narrow Grip Pulldown",
+      "Hammer High Row",
+      "Machine Pullover",
+      "Straight Arm Pulldown"
+    ],
+    "horizontalPull": [
       "Seated Cable Row",
       "Chest Supported Row",
-      "Pull-Up",
       "Face Pull",
       "Pendlay Row",
       "T-Bar Row",
       "Single-Arm Dumbbell Row",
       "Meadows Row",
-      "Cable Pullover",
       "Inverted Row",
       "Cable Flexion Row",
       "Machine Row",
-      "Lat Prayers (Straight Arm Lat Pulldown)",
       "Barbell Bent Over Row",
-      "Rope Arm Pulldown",
       "Single Arm Bent Over Row",
       "Reverse-Grip Barbell Bent-Over Row",
-      "Wide-Grip Lat Pulldown",
-      "Pull-up"
+      "Cambered Bar Row",
+      "Barbell Row to Chest",
+      "Underhand EZ Bar Row",
+      "Smith Machine Row",
+      "Machine Chest Supported Row",
+      "T Bar Row",
+      "Incline Dumbbell Row",
+      "Two Arm Dumbbell Row",
+      "Single Arm Dumbbell Row",
+      "Hammer Low Row",
+      "Seal Row"
     ],
     "lowerBack": [
       "Back Extension",
@@ -280,7 +310,8 @@
     },
     "Barbell Bent Over Row": {
       "videos": [
-        "https://youtu.be/6eBwGki2JuU?t=1166"
+        "https://youtu.be/6eBwGki2JuU?t=1166",
+        "https://youtu.be/6FZHJGzMFEc"
       ],
       "notes": "To take advantage of the stretched position without failing early at the top, use a dynamic torso angle. Keep your lower back perfectly straight but start with your torso nearly parallel to the floor. As you pull the bar up, dynamically raise your torso to a 45-degree angle. Lower the weight under control back to the starting parallel position."
     },
@@ -403,6 +434,192 @@
         "http://www.youtube.com/watch?v=wWEKiu5ok6o&t=739s"
       ],
       "notes": "Stand with knees soft and elbow joints lightly bent. Tilt your torso slightly forward to line up the lateral deltoid head with the plane of resistance. Raise the weights out to your sides smoothly, suppressing the urge to use a leg bounce or momentum to swing the dumbbells up."
+    },
+    "Cambered Bar Row": {
+      "videos": [
+        "https://youtu.be/jiowkUMomlw"
+      ],
+      "notes": ""
+    },
+    "Barbell Row to Chest": {
+      "videos": [
+        "https://youtu.be/UPGuwx7GQ9s"
+      ],
+      "notes": ""
+    },
+    "Underhand EZ Bar Row": {
+      "videos": [
+        "https://youtu.be/H260SUUyJBM"
+      ],
+      "notes": ""
+    },
+    "Smith Machine Row": {
+      "videos": [
+        "https://youtu.be/3QcJggd_L24"
+      ],
+      "notes": ""
+    },
+    "Chest Supported Row": {
+      "videos": [
+        "https://youtu.be/0UBRfi04zDs"
+      ],
+      "notes": ""
+    },
+    "Machine Chest Supported Row": {
+      "videos": [
+        "https://youtu.be/_FrrYQxA6kc"
+      ],
+      "notes": ""
+    },
+    "T Bar Row": {
+      "videos": [
+        "https://youtu.be/yPis7nlbqdY"
+      ],
+      "notes": ""
+    },
+    "Incline Dumbbell Row": {
+      "videos": [
+        "https://youtu.be/tZUYS7X50so"
+      ],
+      "notes": ""
+    },
+    "Two Arm Dumbbell Row": {
+      "videos": [
+        "https://youtu.be/5PoEksoJNaw"
+      ],
+      "notes": ""
+    },
+    "Single Arm Dumbbell Row": {
+      "videos": [
+        "https://youtu.be/DMo3HJoawrU"
+      ],
+      "notes": ""
+    },
+    "Hammer Low Row": {
+      "videos": [
+        "https://youtu.be/opjbouBmUWg"
+      ],
+      "notes": ""
+    },
+    "Inverted Row": {
+      "videos": [
+        "https://youtu.be/K0aCM1HMwU0"
+      ],
+      "notes": ""
+    },
+    "Seal Row": {
+      "videos": [
+        "https://youtu.be/4H2ItXwUTp8"
+      ],
+      "notes": ""
+    },
+    "Seated Cable Row": {
+      "videos": [
+        "https://youtu.be/UCxxvViTLoM"
+      ],
+      "notes": ""
+    },
+    "Normal Grip Pullup": {
+      "videos": [
+        "https://youtu.be/iWpoegdfgtc"
+      ],
+      "notes": ""
+    },
+    "Wide Grip Pullup": {
+      "videos": [
+        "https://youtu.be/GRgWPT9XSQQ"
+      ],
+      "notes": ""
+    },
+    "Parallel Grip Pullup": {
+      "videos": [
+        "https://youtu.be/Xwt6FQAK5wM"
+      ],
+      "notes": ""
+    },
+    "Underhand Pullup": {
+      "videos": [
+        "https://youtu.be/9JC1EwqezGY"
+      ],
+      "notes": ""
+    },
+    "Assisted Normal Grip Pullup": {
+      "videos": [
+        "https://youtu.be/8ygapPMYK1I"
+      ],
+      "notes": ""
+    },
+    "Assisted Wide Grip Pullup": {
+      "videos": [
+        "https://youtu.be/0tiC6RUZL8Y"
+      ],
+      "notes": ""
+    },
+    "Assisted Parallel Pullup": {
+      "videos": [
+        "https://youtu.be/GdsRZAeeDUc"
+      ],
+      "notes": ""
+    },
+    "Assisted Underhand Pullup": {
+      "videos": [
+        "https://youtu.be/L4ChTwrXTjc"
+      ],
+      "notes": ""
+    },
+    "Normal Grip Pulldown": {
+      "videos": [
+        "https://youtu.be/EUiRi47Epcg"
+      ],
+      "notes": ""
+    },
+    "Wide Grip Pulldown": {
+      "videos": [
+        "https://youtu.be/YCKPD4BSD2E"
+      ],
+      "notes": ""
+    },
+    "Parallel Pulldown": {
+      "videos": [
+        "https://youtu.be/--utaPT7XYQ"
+      ],
+      "notes": ""
+    },
+    "Underhand Pulldown": {
+      "videos": [
+        "https://youtu.be/VprlTxpB1rk"
+      ],
+      "notes": ""
+    },
+    "Narrow Grip Pulldown": {
+      "videos": [
+        "https://youtu.be/GRHLNfmr_oI"
+      ],
+      "notes": ""
+    },
+    "Hammer High Row": {
+      "videos": [
+        "https://youtu.be/gg5hwJuv6KI"
+      ],
+      "notes": ""
+    },
+    "Dumbbell Pullover": {
+      "videos": [
+        "https://youtu.be/jQjWLiWg4sI"
+      ],
+      "notes": ""
+    },
+    "Machine Pullover": {
+      "videos": [
+        "https://youtu.be/oxpAl14EYyc"
+      ],
+      "notes": ""
+    },
+    "Straight Arm Pulldown": {
+      "videos": [
+        "https://youtu.be/G9uNaXGTJ4w"
+      ],
+      "notes": ""
     }
   },
   "dayTemplates": {
